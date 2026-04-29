@@ -1,0 +1,14 @@
+{
+  "domain": "HR",
+  "designation": "process_the_platform_supports_three_primary_user_roles_admin_manager_and_recruiter",
+  "label": "process. The platform supports three primary user roles: Admin, Manager, and Recruiter.",
+  "opening": "Welcome to the process. The platform supports three primary user roles: Admin, Manager, and Recruiter. interview. We will begin with a short screening round.",
+  "flow_type": "llm_screening",
+  "sections": [
+    {
+      "id": "core_skills",
+      "title": "Core Skills",
+      "questions": []
+    }
+  ]
+}

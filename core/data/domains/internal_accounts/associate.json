@@ -1,0 +1,213 @@
+{
+  "domain": "internal_accounts",
+  "designation": "associate_accounts",
+  "label": "Associate – Internal Accounting",
+
+  "opening": "Welcome to the Internal Accounts interview. Please introduce yourself. ",
+
+  "role_intro_gate": {
+    "question": "Before we begin, can you explain what you understand about the role of {role} at JMS TechNova?",
+    "end_if_no": "Thank you for your time. Our team will be contact you. "
+  },
+
+  "flow_type": "sequential",
+
+  "sections": [
+
+    {
+      "id": "accounting_exposure",
+      "title": "Accounting Exposure",
+
+      "questions": [
+
+        {
+          "id": "acc_exp_1",
+          "text": "Have you worked on basic accounting tasks such as ledger posting or bookkeeping?",
+          "type": "yes_no",
+
+          "branches": {
+            "yes": "acc_exp_1a",
+            "no": "acc_exp_1b"
+          },
+
+          "scoring_tags": ["accounting_basics"]
+        },
+
+        {
+          "id": "acc_exp_1a",
+          "text": "How many years of experience do you have working with accounting tasks?",
+          "type": "number",
+
+          "store_as": "accounting_years",
+
+          "note": "Captured for reporting only. Not used for rejection.",
+
+          "scoring_tags": ["experience_metadata"]
+        },
+
+        {
+          "id": "acc_exp_1b",
+          "text": "Have you assisted someone else with accounting work or completed relevant training?",
+          "type": "open",
+
+          "scoring_tags": ["learning_attitude"]
+        },
+
+        {
+          "id": "acc_exp_2",
+          "text": "What accounting principles are important to ensure accurate financial records?",
+          "type": "open",
+
+          "followups": [
+            "How do you avoid posting errors?",
+            "What checks do you perform before closing books?"
+          ],
+
+          "scoring_tags": ["accuracy", "controls"]
+        }
+      ]
+    },
+
+    {
+      "id": "taxation_basics",
+      "title": "Taxation & Compliance Basics",
+
+      "questions": [
+
+        {
+          "id": "acc_tax_1",
+          "text": "Do you have exposure to GST, TDS, or other statutory compliances?",
+          "type": "yes_no",
+
+          "branches": {
+            "yes": "acc_tax_1a",
+            "no": "acc_tax_1b"
+          },
+
+          "scoring_tags": ["tax_exposure"]
+        },
+
+        {
+          "id": "acc_tax_1a",
+          "text": "Which tax compliances have you worked on, and what was your role?",
+          "type": "open",
+
+          "scoring_tags": ["gst", "tds", "compliance"]
+        },
+
+        {
+          "id": "acc_tax_1b",
+          "text": "How would you prepare yourself to handle tax compliance responsibilities?",
+          "type": "open",
+
+          "scoring_tags": ["learning_attitude"]
+        }
+      ]
+    },
+
+    {
+      "id": "software_tools",
+      "title": "Accounting Software & Tools",
+
+      "questions": [
+
+        {
+          "id": "acc_soft_1",
+          "text": "Have you used any accounting software such as SAP, Tally, Zoho, or QuickBooks?",
+          "type": "yes_no",
+
+          "branches": {
+            "yes": "acc_soft_1a",
+            "no": "acc_soft_1b"
+          },
+
+          "scoring_tags": ["software_exposure"]
+        },
+
+        {
+          "id": "acc_soft_1a",
+          "text": "Which tools have you used and what tasks did you perform on them?",
+          "type": "open",
+
+          "scoring_tags": ["systems", "data_entry"]
+        },
+
+        {
+          "id": "acc_soft_1b",
+          "text": "How would you quickly learn a new accounting system if required?",
+          "type": "open",
+
+          "scoring_tags": ["adaptability"]
+        }
+      ]
+    },
+
+    {
+      "id": "reconciliation_reporting",
+      "title": "Reconciliation & Reporting",
+
+      "questions": [
+
+        {
+          "id": "acc_rec_1",
+          "text": "Can you explain the process of bank reconciliation?",
+          "type": "open",
+
+          "followups": [
+            "What common mismatches do you encounter?",
+            "How do you resolve unreconciled entries?"
+          ],
+
+          "scoring_tags": ["reconciliation", "problem_solving"]
+        },
+
+        {
+          "id": "acc_rep_1",
+          "text": "What types of management or MIS reports have you helped prepare?",
+          "type": "open",
+
+          "followups": [
+            "How do you ensure data accuracy in reports?",
+            "Who typically reviews these reports?"
+          ],
+
+          "scoring_tags": ["reporting", "analysis"]
+        }
+      ]
+    },
+
+    {
+      "id": "communication_controls",
+      "title": "Communication & Internal Controls",
+
+      "questions": [
+
+        {
+          "id": "acc_com_1",
+          "text": "How do you coordinate with other departments for invoice or payment processing?",
+          "type": "open",
+
+          "followups": [
+            "How do you follow up on pending information?",
+            "How do you handle urgent payment requests?"
+          ],
+
+          "scoring_tags": ["cross_functional", "communication"]
+        },
+
+        {
+          "id": "acc_ctrl_1",
+          "text": "Why are internal controls important in an accounting function?",
+          "type": "open",
+
+          "followups": [
+            "Can you give an example of a control you have seen?",
+            "How would weak controls impact the organization?"
+          ],
+
+          "scoring_tags": ["internal_controls", "risk_awareness"]
+        }
+      ]
+    }
+  ]
+}

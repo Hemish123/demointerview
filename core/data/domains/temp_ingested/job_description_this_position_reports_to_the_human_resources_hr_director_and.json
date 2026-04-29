@@ -1,0 +1,14 @@
+{
+  "domain": "HR",
+  "designation": "job_description_this_position_reports_to_the_human_resources_hr_director_and",
+  "label": "Job Description: This position reports to the Human Resources (HR) director and",
+  "opening": "Welcome to the Job Description: This position reports to the Human Resources (HR) director and interview. We will begin with a short screening round.",
+  "flow_type": "llm_screening",
+  "sections": [
+    {
+      "id": "core_skills",
+      "title": "Core Skills",
+      "questions": []
+    }
+  ]
+}

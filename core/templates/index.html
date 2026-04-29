@@ -1,0 +1,1459 @@
+{% comment %} <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" href="/static/favicon.ico">
+
+<title>AI Voice Interviewer</title>
+
+<style>
+/* ===============================
+   GLOBAL
+================================ */
+body {
+  margin: 0;
+  font-family: "Inter", system-ui, sans-serif;
+  background: radial-gradient(circle at top, #0f172a, #020617 70%);
+  color: #e5e7eb;
+}
+
+.container {
+  max-width: 920px;
+  margin: auto;
+  padding: 40px 20px;
+}
+
+/* ===============================
+   HEADER
+================================ */
+.header {
+  text-align: center;
+  margin-bottom: 35px;
+}
+
+.header h1 {
+  font-size: 34px;
+  font-weight: 700;
+}
+
+.header p {
+  color: #94a3b8;
+}
+
+/* ===============================
+   CARD
+================================ */
+.card {
+  background: linear-gradient(180deg, #020617, #020617);
+  border-radius: 14px;
+  padding: 24px;
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,0.04),
+    0 20px 40px rgba(0,0,0,0.6);
+}
+
+/* ===============================
+   FORM
+================================ */
+label {
+  font-size: 13px;
+  color: #cbd5f5;
+}
+
+select, input[type=file] {
+  width: 100%;
+  margin-top: 6px;
+  margin-bottom: 16px;
+  padding: 12px 14px;
+  border-radius: 8px;
+  background: #020617;
+  color: #e5e7eb;
+  border: 1px solid #1e293b;
+  font-size: 15px;
+}
+
+button {
+  width: 100%;
+  padding: 13px;
+  border-radius: 8px;
+  border: none;
+  font-size: 15px;
+  font-weight: 600;
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+  color: white;
+  cursor: pointer;
+}
+
+button:hover {
+  transform: translateY(-1px);
+}
+
+/* ===============================
+   CHAT
+================================ */
+.chat {
+  margin-top: 10px;
+  max-height: 420px;
+  overflow-y: auto;
+}
+
+/* BOT */
+.bot {
+  background: #0e5461;
+  border-left: 4px solid #22c55e;
+  padding: 14px;
+  border-radius: 10px;
+  margin-bottom: 14px;
+  max-width: 75%;
+}
+
+/* USER */
+.user {
+  background: #2a3359;
+  border-right: 4px solid #3b82f6;
+  padding: 14px;
+  border-radius: 10px;
+  margin-bottom: 14px;
+  margin-left: auto;
+  max-width: 75%;
+  text-align: right;
+}
+
+/* FOOTER */
+.footer input {
+  width: 100%;
+  padding: 12px;
+  background: #020617;
+  border: 1px solid #1e293b;
+  border-radius: 8px;
+  color: white;
+  text-align: center;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <div class="header">
+    <h1>🎙️ AI Voice Interviewer</h1>
+    <p>Automated screening powered by JMS TechNova</p>
+  </div>
+
+  <!-- ================= SETUP ================= -->
+
+  <div class="card" id="setupCard">
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;">
+
+      <!-- PREDEFINED -->
+      <div>
+
+        <h3>🎯 Predefined Role</h3>
+
+        <label>Domain</label>
+        <select id="domain"></select>
+
+        <label>Role</label>
+        <select id="role"></select>
+
+        <button onclick="startPredefined()">Start Interview</button>
+
+      </div>
+
+      <!-- AUTO JD -->
+      <div>
+
+        <h3>📄 JD / Resume</h3>
+
+        <label>Upload Document</label>
+        <input type="file" id="jdFile" accept=".pdf,.doc,.docx">
+
+        <button onclick="startAutoJD()">Upload & Start Interview</button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- ================= INTERVIEW ================= -->
+
+  <div class="card" id="interviewCard" style="display:none;">
+
+    <div class="chat" id="chat"></div>
+
+    <div class="footer">
+      <input id="answer"
+             placeholder="🎤 Speak naturally..."
+             disabled />
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+
+/* ================= CONFIG ================= */
+
+const START_URL = "/api/start/";
+const START_AUTO_URL = "/api/start-auto/";
+const NEXT_URL = "/api/next/";
+const DOMAINS_URL = "/api/domains/";
+const ROLES_URL = "/api/roles/";
+
+let sessionId = null;
+let recognition = null;
+let interviewFinished = false;
+
+/* ================= iOS / SAFARI DETECTION ================= */
+
+const IS_IOS = /iPhone|iPad|iPod|Macintosh/i.test(navigator.userAgent);
+
+/* ================= AUDIO ================= */
+
+let iosAudio = new Audio();
+iosAudio.playsInline = true;
+iosAudio.preload = "auto";
+
+let audioContext = null;
+
+/* ================= UI ================= */
+
+function addBot(t) {
+  chat.innerHTML += `<div class="bot">${t}</div>`;
+  chat.scrollTop = chat.scrollHeight;
+}
+
+function addUser(t) {
+  chat.innerHTML += `<div class="user">${t}</div>`;
+  chat.scrollTop = chat.scrollHeight;
+}
+
+/* ================= DOMAIN + ROLE LOAD ================= */
+
+fetch(DOMAINS_URL)
+  .then(r => r.json())
+  .then(d => {
+
+    domain.innerHTML = "";
+
+    d.domains.forEach(x => {
+      domain.innerHTML +=
+        `<option value="${x.id}">${x.label}</option>`;
+    });
+
+    if (d.domains.length) loadRoles();
+  })
+  .catch(err => console.error("❌ Domain load failed", err));
+
+domain.onchange = loadRoles;
+
+function loadRoles() {
+
+  if (!domain.value) return;
+
+  fetch(`${ROLES_URL}${domain.value}/`)
+    .then(r => r.json())
+    .then(d => {
+
+      role.innerHTML = "";
+
+      d.roles.forEach(x => {
+        role.innerHTML +=
+          `<option value="${x.id}">${x.label}</option>`;
+      });
+    })
+    .catch(err => console.error("❌ Role load failed", err));
+}
+
+/* ================= AUDIO UNLOCK ================= */
+
+async function unlockIOS() {
+
+  if (!audioContext)
+    audioContext = new (window.AudioContext || window.webkitAudioContext)();
+
+  if (audioContext.state === "suspended")
+    await audioContext.resume();
+
+  // silent buffer to unlock safari
+  const buf = audioContext.createBuffer(1, 1, 22050);
+  const src = audioContext.createBufferSource();
+  src.buffer = buf;
+  src.connect(audioContext.destination);
+  src.start();
+}
+
+/* ================= MIC ================= */
+
+function initMic() {
+
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+  if (!SR) {
+    alert("Speech recognition not supported");
+    return;
+  }
+
+  recognition = new SR();
+  recognition.lang = "en-IN";
+  recognition.continuous = false;
+  recognition.interimResults = false;
+
+  recognition.onstart = () => {
+    answer.placeholder = "🎤 Listening...";
+  };
+
+  recognition.onresult = e => {
+    const text = e.results[0][0].transcript;
+    recognition.stop();
+    addUser(text);
+    sendAnswer(text);
+  };
+
+  recognition.onerror = () => stopMic();
+  recognition.onend = () => {};
+}
+
+function startMic() {
+
+  if (interviewFinished) return;
+
+  if (!recognition) initMic();
+
+  try {
+    recognition.start();
+  } catch (e) {
+    console.warn("Mic start blocked");
+  }
+}
+
+function stopMic() {
+
+  if (recognition) {
+    try { recognition.stop(); } catch {}
+  }
+}
+
+/* ================= AUDIO PLAY ================= */
+
+function playAudio(b64, isFinal = false) {
+
+  if (!b64) {
+    if (!isFinal) startMic();
+    return;
+  }
+
+  iosAudio.src = "data:audio/wav;base64," + b64;
+  iosAudio.load();
+
+  iosAudio.onended = () => {
+    if (!isFinal && !interviewFinished) {
+      startMic();
+    }
+  };
+
+  iosAudio.play()
+    .catch(() => console.warn("Safari autoplay blocked"));
+}
+
+/* ================= PREDEFINED START ================= */
+
+async function startPredefined() {
+
+  await unlockIOS();
+  initMic();
+
+  const r = await fetch(START_URL, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      company: "JMS TechNova",
+      role_label: role.options[role.selectedIndex].text,
+      designation: role.value
+    })
+  });
+
+  const d = await r.json();
+
+  sessionId = d.session_id;
+
+  setupCard.style.display = "none";
+  interviewCard.style.display = "block";
+
+  addBot(d.question.text);
+  playAudio(d.audio);
+}
+
+/* ================= AUTO JD ================= */
+
+async function startAutoJD() {
+
+  const file = document.getElementById("jdFile").files[0];
+  if (!file) { alert("Upload JD first"); return; }
+
+  await unlockIOS();
+  initMic();
+
+  const fd = new FormData();
+  fd.append("jd", file);
+
+  const r = await fetch(START_AUTO_URL, {
+    method: "POST",
+    body: fd
+  });
+
+  const d = await r.json();
+
+  sessionId = d.session_id;
+
+  setupCard.style.display = "none";
+  interviewCard.style.display = "block";
+
+  addBot(d.question.text);
+  playAudio(d.audio);
+}
+
+/* ================= SEND ANSWER ================= */
+
+async function sendAnswer(text) {
+
+  if (interviewFinished) return;
+
+  const r = await fetch(NEXT_URL, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      session_id: sessionId,
+      answer: text
+    })
+  });
+
+  const d = await r.json();
+
+  addBot(d.question.text);
+
+  if (d.finished) {
+
+    interviewFinished = true;
+
+    stopMic();
+    answer.disabled = true;
+    answer.placeholder = "Interview finished";
+
+    playAudio(d.audio, true);
+    return;
+  }
+
+  playAudio(d.audio);
+}
+
+/* ================= FORCE END ================= */
+
+function endInterviewUI() {
+
+  interviewFinished = true;
+
+  stopMic();
+
+  answer.disabled = true;
+  answer.placeholder = "Interview finished";
+}
+
+</script>
+
+
+
+</body>
+</html>
+
+
+{% endcomment %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" href="/static/favicon.ico">
+
+<title>AI Voice Interviewer</title>
+
+<style>
+/* ===============================
+   GLOBAL
+================================ */
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: "Inter", system-ui, sans-serif;
+  background: radial-gradient(circle at top, #cfd4dc, #b7c8e4 70%);
+  color: #4d4d84;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.container {
+  width: 100%;
+  max-width: 920px;
+  padding: 20px;
+}
+
+/* ===============================
+   HEADER
+================================ */
+.header {
+  text-align: center;
+  margin-bottom: 35px;
+}
+
+.header h1 {
+  font-size: 34px;
+  font-weight: 700;
+}
+
+.header p {
+  color: #2e3032;
+}
+
+
+/* ===============================
+   CARD
+================================ */
+
+#setupCard {
+  margin: 0 auto;
+  width: 100%;
+}
+
+
+.card {
+  background: linear-gradient(180deg, #020617, #020617);
+  border-radius: 14px;
+  padding: 24px;
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,0.04),
+    0 20px 40px rgba(0,0,0,0.6);
+}
+
+/* ===============================
+   FORM
+================================ */
+label {
+  font-size: 13px;
+  color: #cbd5f5;
+}
+
+select, input[type=file] {
+  width: 100%;
+  margin-top: 6px;
+  margin-bottom: 16px;
+  padding: 12px 14px;
+  border-radius: 8px;
+  background: #020617;
+  color: #e5e7eb;
+  border: 1px solid #1e293b;
+  font-size: 15px;
+}
+
+button {
+  width: 100%;
+  padding: 13px;
+  border-radius: 8px;
+  border: none;
+  font-size: 15px;
+  font-weight: 600;
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+  color: white;
+  cursor: pointer;
+}
+
+button:hover {
+  transform: translateY(-1px);
+}
+
+/* ===============================
+   CHAT
+================================ */
+.chat {
+  margin-top: 10px;
+  max-height: 420px;
+  overflow-y: auto;
+}
+
+/* BOT */
+.bot {
+  background: #ffffff;
+  border-left: 6px solid #22c55e;
+  padding: 14px;
+  border-radius: 10px;
+  margin-bottom: 14px;
+  max-width: 75%;
+}
+
+/* USER */
+.user {
+  background: #ffffff;
+  border-right: 6px solid #3b82f6;
+  padding: 14px;
+  border-radius: 10px;
+  margin-bottom: 14px;
+  margin-left: auto;
+  max-width: 75%;
+  text-align: right;
+}
+
+/* FOOTER */
+.footer input {
+  width: 100%;
+  padding: 7px;
+  background: #020617;
+  border: 1px solid #1e293b;
+  border-radius: 8px;
+  color: white;
+  text-align: center;
+}
+
+/* ===============================
+   LOADING OVERLAY
+================================ */
+
+.loading-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(2,6,23,0.92);
+  backdrop-filter: blur(6px);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.loading-box {
+  text-align: center;
+}
+
+.spinner {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  border: 6px solid rgba(255,255,255,0.15);
+  border-top-color: #3b82f6;
+  animation: spin 1s linear infinite;
+  margin: auto;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.loading-text {
+  margin-top: 18px;
+  font-size: 15px;
+  color: #cbd5f5;
+  letter-spacing: 0.4px;
+}
+
+/* =========================================
+   RESPONSIVE DESIGN – ALL DEVICES
+========================================= */
+
+/* ---------- Tablets & Small Laptops ---------- */
+@media (max-width: 1024px) {
+
+  .container {
+    max-width: 860px;
+    padding: 18px;
+  }
+
+  .header h1 {
+    font-size: 30px;
+  }
+
+  .chat {
+    max-height: 380px;
+  }
+}
+
+/* ---------- Mobile Devices (Android + iPhone) ---------- */
+@media (max-width: 768px) {
+
+  body {
+    align-items: flex-start;
+    padding-top: 10px;
+  }
+
+  .container {
+    max-width: 100%;
+    padding: 14px;
+  }
+
+  .header {
+    margin-bottom: 20px;
+  }
+
+  .header h1 {
+    font-size: 26px;
+  }
+
+  .header p {
+    font-size: 14px;
+  }
+
+  .card {
+    padding: 18px;
+    border-radius: 12px;
+  }
+
+  /* Chat area */
+  .chat {
+    max-height: 65vh;        /* 🔑 adaptive height */
+    padding-right: 4px;
+  }
+
+  /* Bot & User bubbles */
+  .bot,
+  .user {
+    font-size: 16px;         /* 🔑 readable on phone */
+    padding: 14px;
+    max-width: 90%;
+    border-radius: 14px;
+  }
+
+  /* Input */
+  .footer input {
+    font-size: 15px;
+    padding: 10px;
+  }
+
+  select,
+  input[type=file] {
+    font-size: 15px;
+    padding: 12px;
+  }
+
+  button {
+    font-size: 15px;
+    padding: 12px;
+  }
+}
+
+/* ---------- Small Phones (≤ 480px) ---------- */
+@media (max-width: 480px) {
+
+  .header h1 {
+    font-size: 22px;
+  }
+
+  .header p {
+    font-size: 13px;
+  }
+
+  .bot,
+  .user {
+    font-size: 15px;
+    max-width: 95%;
+  }
+
+  .chat {
+    max-height: 60vh;
+  }
+
+  button {
+    padding: 11px;
+    font-size: 14px;
+  }
+}
+
+/* ---------- Fix iOS Scroll & Overflow ---------- */
+.chat {
+  -webkit-overflow-scrolling: touch; /* smooth scroll on iOS */
+  overscroll-behavior: contain;
+}
+
+/* ---------- Prevent zoom on input (iOS) ---------- */
+input,
+select,
+button {
+  font-size: 16px; /* prevents iOS zoom */
+}
+
+/* ===============================
+   END INTERVIEW BUTTON
+================================ */
+
+/* ===============================
+   END INTERVIEW BUTTON (BELOW CARD)
+================================ */
+
+#endInterviewWrapper {
+  display: none;              /* shown via JS */
+  margin-top: 20px;
+  text-align: center;
+}
+
+.end-btn {
+  width: 100%;
+  max-width: 320px;
+  padding: 14px;
+  border-radius: 12px;
+  border: none;
+
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+  color: white;
+
+  box-shadow: 0 10px 25px rgba(239,68,68,0.35);
+  transition: all 0.2s ease;
+}
+
+.end-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 30px rgba(239,68,68,0.45);
+}
+
+
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <div class="header">
+    <h1>🎙️ AI Voice Interviewer</h1>
+    <p>Automated screening powered by JMS TechNova</p>
+  </div>
+
+  <!-- ================= SETUP ================= -->
+
+  <div class="card" id="setupCard">
+
+    <div class="setup-grid">
+
+      <!-- PREDEFINED -->
+      <div>
+
+        <h3>🎯 Predefined Role</h3>
+
+        <label>Domain</label>
+        <select id="domain"></select>
+
+        <label>Role</label>
+        <select id="role"></select>
+
+        <button onclick="showLoading(); startPredefined()">Start Interview</button>
+
+      </div>
+
+      <!-- AUTO JD -->
+      {% comment %} <div>
+
+        <h3>📄 JD / Resume</h3>
+
+        <label>Upload Document</label>
+        <input type="file" id="jdFile" accept=".pdf,.doc,.docx">
+
+        <button onclick="showLoading(); startAutoJD()">Upload & Start Interview</button>
+
+      </div> {% endcomment %}
+
+    </div>
+
+  </div>
+
+  <!-- ================= INTERVIEW ================= -->
+
+  <div class="card" id="interviewCard" style="display:none;">
+
+    <div class="chat" id="chat"></div>
+
+    <div class="footer">
+      <input id="answer"
+             placeholder="🎤"
+             disabled />
+    </div>
+
+  </div>
+
+
+  <div id="endInterviewWrapper" style="display:none; text-align:center; margin-top:16px;">
+    <button id="endInterviewBtn" class="end-btn">⛔ End Interview</button>
+  </div>
+
+</div>
+
+<!-- ================= END INTERVIEW BUTTON ================= -->
+
+
+
+
+
+<!-- ================= LOADING ================= -->
+
+<div class="loading-overlay" id="loadingOverlay">
+  <div class="loading-box">
+    <div class="spinner"></div>
+    <div class="loading-text">
+      Preparing interview…<br>
+      Analyzing role & initializing voice engine
+    </div>
+  </div>
+</div>
+
+<!-- ================= YOUR CRITICAL SCRIPT (UNCHANGED) ================= -->
+<script>
+
+/* =====================================================
+   CONFIG
+===================================================== */
+
+const START_URL = "/api/v1/start/";
+const START_AUTO_URL = "/api/v1/start-auto/";
+const NEXT_URL = "/api/v1/next/";
+const DOMAINS_URL = "/api/v1/domains/";
+const ROLES_URL = "/api/v1/roles/";
+
+let sessionId = null;
+let recognition = null;
+let interviewFinished = false;
+let answerFinalized = false;
+
+// ================= PAUSE TRACKING =================
+let silenceTimer = null;
+let noResponseTimer = null;   // ← SEPARATE timer for "bot finished, user hasn't spoken yet"
+let speechBuffer = "";
+let lastSpeechTime = 0;
+let userStartedSpeaking = false;  // ← NEW FLAG: true once user begins speaking
+
+const COMMA_PAUSE_THRESHOLD = 15000;
+const USER_LONG_SILENCE_LIMIT = 15000;
+const NO_RESPONSE_WAIT = 12000;   // how long to wait for user to START speaking after bot
+
+/* =====================================================
+   DEVICE DETECTION
+===================================================== */
+
+// FIX #7: Removed duplicate/invalid "Macbook" token (Macintosh already covers it)
+const IS_IOS = /iPhone|iPad|iPod|Macintosh/i.test(navigator.userAgent);
+
+/* =====================================================
+   AUDIO
+===================================================== */
+
+let iosAudio = new Audio();
+iosAudio.playsInline = true;
+iosAudio.preload = "auto";
+
+let audioContext = null;
+
+/* =====================================================
+   MIC STATE
+===================================================== */
+
+let micActive = false;
+
+/* =====================================================
+   UI
+===================================================== */
+
+function addBot(t) {
+  chat.innerHTML += `<div class="bot">${t}</div>`;
+  chat.scrollTop = chat.scrollHeight;
+}
+
+function addUser(t) {
+  let last = chat.querySelector(".user:last-child");
+
+  if (last && !answerFinalized) {
+    last.innerText = t;
+  } else {
+    chat.innerHTML += `<div class="user">${t}</div>`;
+  }
+
+  chat.scrollTop = chat.scrollHeight;
+}
+
+/* =====================================================
+   DOMAIN + ROLE LOAD
+===================================================== */
+
+fetch(DOMAINS_URL)
+  .then(r => r.json())
+  .then(d => {
+    domain.innerHTML = "";
+    d.domains.forEach(x => {
+      domain.innerHTML += `<option value="${x.id}">${x.label}</option>`;
+    });
+    if (d.domains.length) loadRoles();
+  });
+
+domain.onchange = loadRoles;
+
+function loadRoles() {
+  if (!domain.value) return;
+  fetch(`${ROLES_URL}${domain.value}/`)
+    .then(r => r.json())
+    .then(d => {
+      role.innerHTML = "";
+      d.roles.forEach(x => {
+        role.innerHTML += `<option value="${x.id}">${x.label}</option>`;
+      });
+    });
+}
+
+/* =====================================================
+   AUDIO UNLOCK
+===================================================== */
+
+async function unlockIOS() {
+  if (!audioContext)
+    audioContext = new (window.AudioContext || window.webkitAudioContext)();
+
+  if (audioContext.state === "suspended")
+    await audioContext.resume();
+
+  const buf = audioContext.createBuffer(1, 1, 22050);
+  const src = audioContext.createBufferSource();
+  src.buffer = buf;
+  src.connect(audioContext.destination);
+  src.start();
+}
+
+/* =====================================================
+   TEXT FORMATTERS
+===================================================== */
+
+function formatSpokenText(text) {
+  if (!text) return "";
+  text = text.trim();
+  text = text.charAt(0).toUpperCase() + text.slice(1);
+  if (!/[.!?]$/.test(text)) {
+    text += ".";
+  }
+  return text;
+}
+
+function formatWithPause(text) {
+  text = text.trim();
+  if (text.length) {
+    text = text.charAt(0).toUpperCase() + text.slice(1);
+  }
+  text = text.replace(/\s+/g, " ");
+  return text;
+}
+
+/* =====================================================
+   MIC INITIALIZATION
+===================================================== */
+
+function initMic() {
+
+  // FIX #5: Guard against multiple initializations stacking handlers
+  if (recognition) return;
+
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if (!SR) {
+    alert("Speech recognition not supported");
+    return;
+  }
+
+  recognition = new SR();
+  recognition.lang = "en-IN";
+  recognition.continuous = true;
+  recognition.interimResults = false;
+
+  recognition.onstart = () => {
+    micActive = true;
+    speechBuffer = "";
+    lastSpeechTime = 0;
+    answer.placeholder = "🎤 Speak Now...";
+  };
+
+  recognition.onresult = e => {
+
+    if (answerFinalized) return;
+
+    const now = Date.now();
+
+    // Use correct result index for continuous mode
+    const i = e.results.length - 1;
+    let text = e.results[i][0].transcript.trim();
+    if (!text || text.length < 2) return;
+
+    // ✅ KEY FIX: User has started speaking — cancel the "no response" timer immediately
+    userStartedSpeaking = true;
+    if (noResponseTimer) {
+      clearTimeout(noResponseTimer);
+      noResponseTimer = null;
+    }
+
+    // COMMA HANDLING
+    if (lastSpeechTime && (now - lastSpeechTime) > COMMA_PAUSE_THRESHOLD) {
+      if (!speechBuffer.endsWith(",")) {
+        speechBuffer += ", ";
+      }
+    }
+
+    speechBuffer += text;
+    lastSpeechTime = now;
+
+    addUser(formatWithPause(speechBuffer));
+
+    // RESET POST-SPEECH SILENCE TIMER (fires after user STOPS talking)
+    if (silenceTimer) clearTimeout(silenceTimer);
+
+    silenceTimer = setTimeout(() => {
+
+      if (answerFinalized) return;
+
+      answerFinalized = true;
+
+      stopMic();
+      micActive = false;
+
+      let finalText = formatSpokenText(speechBuffer);
+      if (!/[.!?]$/.test(finalText)) {
+        finalText += ".";
+      }
+
+      speechBuffer = "";
+      lastSpeechTime = 0;
+      userStartedSpeaking = false;
+
+      sendAnswer(finalText);
+
+    }, USER_LONG_SILENCE_LIMIT);
+  };
+
+  recognition.onend = () => {
+
+    if (interviewFinished) return;
+
+    if (speechBuffer && !answerFinalized) {
+      if (micActive) {
+        try { recognition.start(); } catch {}
+        return;
+      }
+    }
+
+    if (speechBuffer && !answerFinalized) {
+      answerFinalized = true;
+      if (silenceTimer) clearTimeout(silenceTimer);
+      if (noResponseTimer) clearTimeout(noResponseTimer);
+      let finalText = formatSpokenText(speechBuffer);
+      speechBuffer = "";
+      lastSpeechTime = 0;
+      userStartedSpeaking = false;
+      sendAnswer(finalText);
+      return;
+    }
+
+    if (!speechBuffer && !answerFinalized) {
+      // only send empty if user truly never spoke (noResponseTimer handles this case now)
+      // do nothing here — let noResponseTimer fire
+      return;
+    }
+
+    if (!interviewFinished && micActive) {
+      try { recognition.start(); } catch {}
+    }
+  };
+
+  recognition.onerror = (e) => {
+    if (interviewFinished) return;
+    if (e.error === "no-speech" || e.error === "audio-capture") return;
+    try { recognition.start(); } catch {}
+  };
+}
+
+/* =====================================================
+   MIC CONTROL
+===================================================== */
+
+function startMic() {
+  if (interviewFinished) return;
+  if (!recognition) initMic();
+  micActive = true;
+  try { recognition.start(); } catch {}
+}
+
+function stopMic() {
+  micActive = false;
+  if (recognition) {
+    try { recognition.stop(); } catch {}
+  }
+}
+
+/* =====================================================
+   AUDIO PLAY
+===================================================== */
+
+function playAudio(b64, isFinal = false) {
+
+  stopMic();
+
+  if (!b64) {
+    // FIX #3: Reset answerFinalized here too, so mic can restart properly
+    answerFinalized = false;
+    if (!isFinal) startMic();
+    return;
+  }
+
+  iosAudio.src = "data:audio/wav;base64," + b64;
+  iosAudio.load();
+
+  iosAudio.onended = () => {
+
+    // Clear any leftover timers
+    if (silenceTimer) clearTimeout(silenceTimer);
+    if (noResponseTimer) clearTimeout(noResponseTimer);
+
+    answerFinalized = false;
+    userStartedSpeaking = false;  // ← reset before new question
+
+    if (!isFinal && !interviewFinished) {
+
+      startMic();
+
+      // ✅ Use SEPARATE noResponseTimer — only fires if user NEVER starts speaking
+      noResponseTimer = setTimeout(() => {
+
+        // Only trigger if user truly never spoke
+        if (!userStartedSpeaking && !answerFinalized && !interviewFinished) {
+
+          answerFinalized = true;
+          stopMic();
+
+          addUser("(No response — moving to next question)");
+          sendAnswer("");
+        }
+
+      }, NO_RESPONSE_WAIT);
+    }
+  };
+
+  iosAudio.play().catch(() => {});
+}
+
+/* =====================================================
+   START PREDEFINED
+===================================================== */
+
+async function startPredefined() {
+
+  await unlockIOS();
+  initMic();
+
+  const r = await fetch(START_URL, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      company: "JMS TechNova",
+      role_label: role.options[role.selectedIndex].text,
+      designation: role.value
+    })
+  });
+
+  const d = await r.json();
+  sessionId = d.session_id;
+
+  setupCard.style.display = "none";
+  interviewCard.style.display = "block";
+  document.getElementById("endInterviewWrapper").style.display = "block";
+
+  addBot(d.question.text);
+  playAudio(d.audio);
+}
+
+/* =====================================================
+   AUTO JD
+===================================================== */
+
+async function startAutoJD() {
+
+  const file = document.getElementById("jdFile").files[0];
+  if (!file) return alert("Upload JD first");
+
+  await unlockIOS();
+  initMic();
+
+  const fd = new FormData();
+  fd.append("jd", file);
+
+  const r = await fetch(START_AUTO_URL, {
+    method: "POST",
+    body: fd
+  });
+
+  const d = await r.json();
+  sessionId = d.session_id;
+
+  setupCard.style.display = "none";
+  interviewCard.style.display = "block";
+
+  addBot(d.question.text);
+  playAudio(d.audio);
+}
+
+/* =====================================================
+   SEND ANSWER
+===================================================== */
+
+async function sendAnswer(text) {
+
+  if (interviewFinished) return;
+  answerFinalized = true;
+
+  const r = await fetch(NEXT_URL, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      session_id: sessionId,
+      answer: text
+    })
+  });
+
+  const d = await r.json();
+  addBot(d.question.text);
+
+  if (d.finished) {
+    interviewFinished = true;
+    stopMic();
+    answer.disabled = true;
+    answer.placeholder = "Interview finished";
+    document.getElementById("endInterviewWrapper").style.display = "none";
+
+    // FIX #8: Show export card FIRST, remove auto-redirect so user has time to export
+    document.getElementById("exportCard").style.display = "block";
+
+    playAudio(d.audio, true);
+    return;
+  }
+
+  playAudio(d.audio);
+}
+
+/* =====================================================
+   FORCE END
+===================================================== */
+
+function endInterviewUI() {
+  interviewFinished = true;
+  stopMic();
+  answer.disabled = true;
+  answer.placeholder = "Interview finished";
+}
+
+/* =====================================================
+   EXPORT  — FIX #1: Single definition only
+===================================================== */
+
+function exportInterview(fmt) {
+  fetch("/api/export/", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      session_id: sessionId,
+      format: fmt
+    })
+  })
+  .then(r => r.json())
+  .then(d => {
+    if (d.success) {
+      alert("Exported successfully: " + d.file);
+    } else {
+      alert("Export failed");
+    }
+  });
+}
+
+function skipExport() {
+  document.getElementById("exportCard").innerHTML =
+    "<p style='color:#94a3b8'>Export skipped.</p>";
+}
+
+/* ===============================
+   END INTERVIEW HANDLER
+================================ */
+
+document.getElementById("endInterviewBtn").onclick = () => {
+
+  if (recognition) {
+    try { recognition.stop(); } catch {}
+  }
+
+  interviewFinished = true;
+  sessionId = null;
+
+  fetch("/api/v1/end/", { method: "POST" }).catch(() => {});
+
+  window.location.href = "/";
+};
+
+/* =====================================================
+   LOADING HELPERS
+===================================================== */
+
+function showLoading() {
+  document.getElementById("loadingOverlay").style.display = "flex";
+}
+
+function hideLoading() {
+  document.getElementById("loadingOverlay").style.display = "none";
+}
+
+const obs = new MutationObserver(() => {
+  if (interviewCard.style.display === "block") {
+    hideLoading();
+  }
+});
+
+obs.observe(document.body, {
+  attributes: true,
+  subtree: true,
+  attributeFilter: ["style"]
+});
+
+</script>
+
+
+</body>
+</html>

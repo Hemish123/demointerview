@@ -1,0 +1,14 @@
+{
+  "domain": "HR",
+  "designation": "other_hr_professionals_in_the_region",
+  "label": "other HR professionals in the region",
+  "opening": "Welcome to the other HR professionals in the region interview. We will begin with a short screening round.",
+  "flow_type": "llm_screening",
+  "sections": [
+    {
+      "id": "core_skills",
+      "title": "Core Skills",
+      "questions": []
+    }
+  ]
+}

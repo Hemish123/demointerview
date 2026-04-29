@@ -1,0 +1,14 @@
+{
+  "domain": "Software Development",
+  "designation": "python_developer",
+  "label": "Python Developer",
+  "opening": "Welcome to the Python Developer interview. We will begin with a short screening round.",
+  "flow_type": "llm_screening",
+  "sections": [
+    {
+      "id": "core_skills",
+      "title": "Core Skills",
+      "questions": []
+    }
+  ]
+}

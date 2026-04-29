@@ -1,0 +1,14 @@
+{
+  "domain": "General",
+  "designation": "job_title_data_analyst",
+  "label": "Job Title: Data Analyst",
+  "opening": "Welcome to the Job Title: Data Analyst interview. We will begin with a short screening round.",
+  "flow_type": "llm_screening",
+  "sections": [
+    {
+      "id": "core_skills",
+      "title": "Core Skills",
+      "questions": []
+    }
+  ]
+}

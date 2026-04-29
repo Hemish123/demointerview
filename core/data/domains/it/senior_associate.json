@@ -1,0 +1,235 @@
+{
+  "domain": "it",
+  "designation": "senior_associate_it",
+  "label": "Senior Associate – Information Technology",
+
+  "opening": "Welcome to the Senior Associate IT interview. Please introduce yourself.",
+
+  "role_intro_gate": {
+    "question": "Before we begin, can you explain what you understand about the role of {role} at JMS TechNova?",
+    "end_if_no": "Thank you for your time. Our team will be contact you. "
+  },
+
+  "flow_type": "sequential",
+
+  "sections": [
+
+    {
+      "id": "lead_experience",
+      "title": "Experience & Escalation Handling",
+
+      "questions": [
+
+        {
+          "id": "it_sen_exp_1",
+          "text": "Have you independently handled high-severity IT incidents or outages?",
+          "type": "yes_no",
+
+          "branches": {
+            "yes": "it_sen_exp_1a",
+            "no": "it_sen_exp_1b"
+          },
+
+          "scoring_tags": ["incident_management"]
+        },
+
+        {
+          "id": "it_sen_exp_1a",
+          "text": "How many years of experience do you have managing critical incidents?",
+          "type": "number",
+
+          "store_as": "incident_years",
+
+          "note": "Captured only for reporting.",
+
+          "scoring_tags": ["experience_metadata"]
+        },
+
+        {
+          "id": "it_sen_exp_1b",
+          "text": "How would you prepare yourself to manage a major outage scenario?",
+          "type": "open",
+
+          "scoring_tags": ["learning_attitude"]
+        },
+
+        {
+          "id": "it_sen_exp_2",
+          "text": "Describe the most complex technical problem you have resolved.",
+          "type": "open",
+
+          "followups": [
+            "What was the root cause?",
+            "How did you prevent recurrence?"
+          ],
+
+          "scoring_tags": ["root_cause", "prevention"]
+        }
+      ]
+    },
+
+    {
+      "id": "systems_admin",
+      "title": "Systems Administration & Infrastructure",
+
+      "questions": [
+
+        {
+          "id": "it_sen_sys_1",
+          "text": "Which server environments have you administered?",
+          "type": "open",
+
+          "followups": [
+            "Have you worked with virtualization?",
+            "What backup strategies did you implement?"
+          ],
+
+          "scoring_tags": ["servers", "virtualization", "backups"]
+        },
+
+        {
+          "id": "it_sen_sys_2",
+          "text": "How do you patch systems while minimizing downtime?",
+          "type": "open",
+
+          "scoring_tags": ["patching", "availability"]
+        }
+      ]
+    },
+
+    {
+      "id": "networking_security",
+      "title": "Networking & Security Operations",
+
+      "questions": [
+
+        {
+          "id": "it_sen_net_1",
+          "text": "Have you configured or managed network devices such as switches or firewalls?",
+          "type": "yes_no",
+
+          "branches": {
+            "yes": "it_sen_net_1a",
+            "no": "it_sen_net_1b"
+          },
+
+          "scoring_tags": ["network_admin"]
+        },
+
+        {
+          "id": "it_sen_net_1a",
+          "text": "What network changes or configurations have you implemented?",
+          "type": "open",
+
+          "scoring_tags": ["network_changes"]
+        },
+
+        {
+          "id": "it_sen_net_1b",
+          "text": "How would you approach learning enterprise networking tools?",
+          "type": "open",
+
+          "scoring_tags": ["learning_attitude"]
+        },
+
+        {
+          "id": "it_sen_sec_1",
+          "text": "Describe your role in handling a security incident.",
+          "type": "open",
+
+          "followups": [
+            "How was the breach detected?",
+            "What controls were strengthened afterward?"
+          ],
+
+          "scoring_tags": ["security_incident"]
+        }
+      ]
+    },
+
+    {
+      "id": "tools_process",
+      "title": "Tools, Automation & IT Processes",
+
+      "questions": [
+
+        {
+          "id": "it_sen_tool_1",
+          "text": "Which enterprise monitoring or automation tools have you used?",
+          "type": "open",
+
+          "scoring_tags": ["monitoring", "automation"]
+        },
+
+        {
+          "id": "it_sen_tool_2",
+          "text": "How do you document fixes and create SOPs for recurring problems?",
+          "type": "open",
+
+          "scoring_tags": ["documentation"]
+        }
+      ]
+    },
+
+    {
+      "id": "mentorship",
+      "title": "Mentoring & Team Leadership",
+
+      "questions": [
+
+        {
+          "id": "it_sen_team_1",
+          "text": "How do you guide junior IT staff members?",
+          "type": "open",
+
+          "followups": [
+            "How do you review their work?",
+            "How do you build troubleshooting skills?"
+          ],
+
+          "scoring_tags": ["mentorship"]
+        }
+      ]
+    },
+
+    {
+      "id": "business_alignment",
+      "title": "Business Alignment & Stakeholder Communication",
+
+      "questions": [
+
+        {
+          "id": "it_sen_bus_1",
+          "text": "How do you communicate technical risks to business stakeholders?",
+          "type": "open",
+
+          "scoring_tags": ["stakeholder_management"]
+        },
+
+        {
+          "id": "it_sen_bus_2",
+          "text": "How do you prioritize incidents that impact critical business operations?",
+          "type": "open",
+
+          "scoring_tags": ["prioritization"]
+        }
+      ]
+    },
+
+    {
+      "id": "growth",
+      "title": "Professional Growth & Strategy",
+
+      "questions": [
+
+        {
+          "id": "it_sen_grow_1",
+          "text": "Which advanced certifications or technologies are you pursuing next?",
+          "type": "open",
+
+          "scoring_tags": ["career_planning"]
+        }
+      ]
+    }
+  ]
+}

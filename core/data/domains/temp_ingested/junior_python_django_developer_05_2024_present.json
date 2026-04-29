@@ -1,0 +1,14 @@
+{
+  "domain": "HR",
+  "designation": "junior_python_django_developer_05_2024_present",
+  "label": "Junior Python(Django) Developer 05/2024 - present",
+  "opening": "Welcome to the Junior Python(Django) Developer 05/2024 - present interview. We will begin with a short screening round.",
+  "flow_type": "llm_screening",
+  "sections": [
+    {
+      "id": "core_skills",
+      "title": "Core Skills",
+      "questions": []
+    }
+  ]
+}

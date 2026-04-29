@@ -1,0 +1,173 @@
+{
+  "domain": "hr_admin",
+  "designation": "associate_hr",
+  "label": "Associate HR",
+
+  "opening": "Welcome to the HR Associate interview. Please briefly introduce yourself.",
+
+  "role_intro_gate": {
+    "question": "Before we begin, can you explain what you understand about the role of {role} at JMS TechNova?",
+    "end_if_no": "Thank you for your time. Our team will be contact you. "
+  },
+
+  "flow_type": "sequential",
+
+  "sections": [
+
+    {
+      "id": "resume_screening",
+      "title": "Resume Screening",
+
+      "questions": [
+
+        {
+          "id": "hr_rs_1",
+          "text": "Do you have experience screening resumes for open positions?",
+          "type": "yes_no",
+
+          "branches": {
+            "yes": "hr_rs_1a",
+            "no": "hr_rs_1b"
+          },
+
+          "scoring_tags": ["recruitment_basics"]
+        },
+
+        {
+          "id": "hr_rs_1a",
+          "text": "How many years of experience do you have in resume screening?",
+          "type": "number",
+
+          "store_as": "resume_screening_years",
+
+          "note": "For information only. Not used for rejection.",
+
+          "scoring_tags": ["experience_metadata"]
+        },
+
+        {
+          "id": "hr_rs_1b",
+          "text": "Have you assisted someone else in screening resumes or observed the process closely?",
+          "type": "open",
+
+          "scoring_tags": ["learning_attitude"]
+        },
+
+        {
+          "id": "hr_rs_2",
+          "text": "What key factors do you check while shortlisting a resume for an HR role?",
+          "type": "open",
+
+          "followups": [
+            "How do you assess cultural fit from a resume?",
+            "How do you check employment gaps?"
+          ],
+
+          "scoring_tags": ["resume_evaluation", "attention_to_detail"]
+        }
+      ]
+    },
+
+    {
+      "id": "recruitment_process",
+      "title": "Recruitment Process",
+
+      "questions": [
+
+        {
+          "id": "hr_rp_1",
+          "text": "Explain the complete recruitment cycle from job posting to offer release.",
+          "type": "open",
+
+          "followups": [
+            "How do you coordinate with hiring managers?",
+            "How do you manage multiple open roles at the same time?"
+          ],
+
+          "scoring_tags": ["recruitment_process", "coordination"]
+        },
+
+        {
+          "id": "hr_rp_2",
+          "text": "What documents are usually collected during employee onboarding?",
+          "type": "open",
+
+          "followups": [
+            "How do you ensure documentation compliance?",
+            "What is your role in background verification?"
+          ],
+
+          "scoring_tags": ["onboarding", "compliance"]
+        }
+      ]
+    },
+
+    {
+      "id": "hr_operations",
+      "title": "HR Operations",
+
+      "questions": [
+
+        {
+          "id": "hr_ops_1",
+          "text": "How do you track employee leave and attendance?",
+          "type": "open",
+
+          "followups": [
+            "Have you used any HRMS tools?",
+            "How would you resolve attendance discrepancies?"
+          ],
+
+          "scoring_tags": ["hrms", "attendance"]
+        },
+
+        {
+          "id": "hr_ops_2",
+          "text": "Describe a situation where you handled an employee query or concern.",
+          "type": "open",
+
+          "followups": [
+            "How did you communicate with the employee?",
+            "What was the final outcome?"
+          ],
+
+          "scoring_tags": ["employee_relations", "communication"]
+        }
+      ]
+    },
+
+    {
+      "id": "exit_process",
+      "title": "Exit & Engagement",
+
+      "questions": [
+
+        {
+          "id": "hr_exit_1",
+          "text": "What steps are involved in the employee exit or separation process?",
+          "type": "open",
+
+          "followups": [
+            "How is full and final settlement handled?",
+            "What role does HR play in exit interviews?"
+          ],
+
+          "scoring_tags": ["exit_process", "payroll_coordination"]
+        },
+
+        {
+          "id": "hr_eng_1",
+          "text": "How would you help improve employee engagement in a growing organization?",
+          "type": "open",
+
+          "followups": [
+            "Can you give an example of an engagement activity?",
+            "How would you measure engagement success?"
+          ],
+
+          "scoring_tags": ["engagement", "culture"]
+        }
+      ]
+    }
+  ]
+}

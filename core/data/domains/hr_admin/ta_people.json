@@ -1,0 +1,190 @@
+{
+  "domain": "hr_admin",
+  "designation": "senior_associate_ta",
+  "label": "Senior Associate – TA & People Function",
+
+  "opening": "Welcome to the Talent Acquisition and People Function interview. Please introduce yourself. ",
+
+    "role_intro_gate": {
+    "question": "Before we begin, can you explain what you understand about the role of {role} at JMS TechNova?",
+    "end_if_no": "Thank you for your time. Our team will be contact you. "
+  },
+
+
+  "flow_type": "sequential",
+
+  "sections": [
+
+    {
+      "id": "sourcing_screening",
+      "title": "Candidate Sourcing & Screening",
+
+      "questions": [
+
+        {
+          "id": "ta_src_1",
+          "text": "Have you personally handled candidate sourcing for open positions?",
+          "type": "yes_no",
+
+          "branches": {
+            "yes": "ta_src_1a",
+            "no": "ta_src_1b"
+          },
+
+          "scoring_tags": ["sourcing_basics"]
+        },
+
+        {
+          "id": "ta_src_1a",
+          "text": "How many years of experience do you have in candidate sourcing?",
+          "type": "number",
+
+          "store_as": "sourcing_years",
+
+          "note": "Captured for reporting only. Not used for rejection.",
+
+          "scoring_tags": ["experience_metadata"]
+        },
+
+        {
+          "id": "ta_src_1b",
+          "text": "Have you supported sourcing activities indirectly or assisted recruiters?",
+          "type": "open",
+
+          "scoring_tags": ["learning_attitude"]
+        },
+
+        {
+          "id": "ta_src_2",
+          "text": "Which sourcing channels have you used most often?",
+          "type": "open",
+
+          "followups": [
+            "How do you evaluate which channel works best?",
+            "Have you worked with recruitment agencies?"
+          ],
+
+          "scoring_tags": ["job_portals", "agency_management"]
+        }
+      ]
+    },
+
+    {
+      "id": "interview_coordination",
+      "title": "Interview Coordination & Hiring",
+
+      "questions": [
+
+        {
+          "id": "ta_int_1",
+          "text": "How do you coordinate interviews between candidates and hiring managers?",
+          "type": "open",
+
+          "followups": [
+            "How do you handle last-minute rescheduling?",
+            "How do you keep candidates engaged during long processes?"
+          ],
+
+          "scoring_tags": ["coordination", "candidate_experience"]
+        },
+
+        {
+          "id": "ta_int_2",
+          "text": "What steps do you take after an interview to move the candidate forward?",
+          "type": "open",
+
+          "followups": [
+            "How do you collect interviewer feedback?",
+            "How quickly should decisions ideally be communicated?"
+          ],
+
+          "scoring_tags": ["feedback_loop", "decision_making"]
+        }
+      ]
+    },
+
+    {
+      "id": "policy_grievance",
+      "title": "HR Policies & Grievance Handling",
+
+      "questions": [
+
+        {
+          "id": "ta_pol_1",
+          "text": "Have you been involved in communicating HR policies to employees?",
+          "type": "yes_no",
+
+          "branches": {
+            "yes": "ta_pol_1a",
+            "no": "ta_pol_1b"
+          },
+
+          "scoring_tags": ["policy_communication"]
+        },
+
+        {
+          "id": "ta_pol_1a",
+          "text": "Can you describe a policy communication initiative you handled?",
+          "type": "open",
+
+          "scoring_tags": ["policy_rollout", "communication"]
+        },
+
+        {
+          "id": "ta_pol_1b",
+          "text": "How would you approach explaining a new HR policy to employees?",
+          "type": "open",
+
+          "scoring_tags": ["communication_skills"]
+        },
+
+        {
+          "id": "ta_grv_1",
+          "text": "Describe a situation where you helped resolve an employee grievance.",
+          "type": "open",
+
+          "followups": [
+            "How did you document the issue?",
+            "How did you ensure confidentiality?"
+          ],
+
+          "scoring_tags": ["grievance_handling", "confidentiality"]
+        }
+      ]
+    },
+
+    {
+      "id": "engagement_exit",
+      "title": "Engagement & Exit Support",
+
+      "questions": [
+
+        {
+          "id": "ta_eng_1",
+          "text": "What employee engagement initiatives have you supported?",
+          "type": "open",
+
+          "followups": [
+            "Which initiative was most successful?",
+            "How did you measure participation?"
+          ],
+
+          "scoring_tags": ["engagement", "culture"]
+        },
+
+        {
+          "id": "ta_exit_1",
+          "text": "What role does Talent Acquisition or HR play during employee exits?",
+          "type": "open",
+
+          "followups": [
+            "How are exit interviews conducted?",
+            "How is feedback shared with leadership?"
+          ],
+
+          "scoring_tags": ["exit_process", "people_ops"]
+        }
+      ]
+    }
+  ]
+}

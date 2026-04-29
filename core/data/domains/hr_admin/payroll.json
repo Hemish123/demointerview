@@ -1,0 +1,193 @@
+{
+  "domain": "hr_admin",
+  "designation": "senior_associate_payroll",
+  "label": "Senior Associate – Payroll",
+
+  "opening": "Welcome to the Payroll interview. Please introduce yourself.",
+
+  "role_intro_gate": {
+    "question": "Before we begin, can you explain what you understand about the role of {role} at JMS TechNova?",
+    "end_if_no": "Thank you for your time. Our team will be contact you. "
+  },
+
+
+  "flow_type": "sequential",
+
+  "sections": [
+
+    {
+      "id": "payroll_exposure",
+      "title": "Payroll Exposure",
+
+      "questions": [
+
+        {
+          "id": "pay_exp_1",
+          "text": "Have you directly handled payroll processing for employees?",
+          "type": "yes_no",
+
+          "branches": {
+            "yes": "pay_exp_1a",
+            "no": "pay_exp_1b"
+          },
+
+          "scoring_tags": ["payroll_basics"]
+        },
+
+        {
+          "id": "pay_exp_1a",
+          "text": "How many years of experience do you have handling payroll?",
+          "type": "number",
+
+          "store_as": "payroll_years",
+
+          "note": "Captured for reporting only. Not used for rejection.",
+
+          "scoring_tags": ["experience_metadata"]
+        },
+
+        {
+          "id": "pay_exp_1b",
+          "text": "Have you supported payroll activities indirectly, such as data preparation or verification?",
+          "type": "open",
+
+          "scoring_tags": ["learning_attitude"]
+        },
+
+        {
+          "id": "pay_exp_2",
+          "text": "What are the key inputs required before running a payroll cycle?",
+          "type": "open",
+
+          "followups": [
+            "How do you validate attendance and overtime data?",
+            "How do you handle salary revisions or incentives?"
+          ],
+
+          "scoring_tags": ["salary_inputs", "payroll_accuracy"]
+        }
+      ]
+    },
+
+    {
+      "id": "statutory_compliance",
+      "title": "Statutory & Legal Compliance",
+
+      "questions": [
+
+        {
+          "id": "pay_stat_1",
+          "text": "Which statutory components are part of payroll in India, such as PF, ESIC, or TDS?",
+          "type": "open",
+
+          "followups": [
+            "How do you calculate provident fund contributions?",
+            "How do you ensure timely statutory filings?"
+          ],
+
+          "scoring_tags": ["pf", "esic", "tds", "statutory_compliance"]
+        },
+
+        {
+          "id": "pay_stat_2",
+          "text": "Have you been responsible for statutory filings or audits?",
+          "type": "yes_no",
+
+          "branches": {
+            "yes": "pay_stat_2a",
+            "no": "pay_stat_2b"
+          },
+
+          "scoring_tags": ["compliance_exposure"]
+        },
+
+        {
+          "id": "pay_stat_2a",
+          "text": "Can you describe the filings or audits you handled?",
+          "type": "open",
+
+          "scoring_tags": ["audit_handling", "regulatory"]
+        },
+
+        {
+          "id": "pay_stat_2b",
+          "text": "How would you prepare yourself to manage statutory filings or audits?",
+          "type": "open",
+
+          "scoring_tags": ["learning_attitude"]
+        }
+      ]
+    },
+
+    {
+      "id": "hrms_operations",
+      "title": "HRMS & Payroll Systems",
+
+      "questions": [
+
+        {
+          "id": "pay_sys_1",
+          "text": "Have you worked with any HRMS or payroll software systems?",
+          "type": "yes_no",
+
+          "branches": {
+            "yes": "pay_sys_1a",
+            "no": "pay_sys_1b"
+          },
+
+          "scoring_tags": ["hrms_experience"]
+        },
+
+        {
+          "id": "pay_sys_1a",
+          "text": "Which systems have you used, and what was your role in them?",
+          "type": "open",
+
+          "scoring_tags": ["systems", "process_ownership"]
+        },
+
+        {
+          "id": "pay_sys_1b",
+          "text": "How would you quickly learn a new payroll system if required?",
+          "type": "open",
+
+          "scoring_tags": ["adaptability"]
+        }
+      ]
+    },
+
+    {
+      "id": "issue_resolution",
+      "title": "Payroll Issue Resolution & Data Privacy",
+
+      "questions": [
+
+        {
+          "id": "pay_iss_1",
+          "text": "Describe a payroll error you encountered and how you resolved it.",
+          "type": "open",
+
+          "followups": [
+            "How did you communicate with the employee?",
+            "What controls did you put in place to avoid recurrence?"
+          ],
+
+          "scoring_tags": ["problem_solving", "communication"]
+        },
+
+        {
+          "id": "pay_priv_1",
+          "text": "How do you ensure confidentiality and data privacy in payroll operations?",
+          "type": "open",
+
+          "followups": [
+            "Who should have access to payroll data?",
+            "What steps would you take in case of a data breach?"
+          ],
+
+          "scoring_tags": ["data_privacy", "compliance"]
+        }
+      ]
+    }
+  ]
+}

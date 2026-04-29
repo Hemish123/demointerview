@@ -1,0 +1,14 @@
+{
+  "domain": "HR",
+  "designation": "how_to_engage_professionally_in_hr_meetings_and_seminars_with",
+  "label": "- How to engage professionally in HR meetings and seminars with",
+  "opening": "Welcome to the - How to engage professionally in HR meetings and seminars with interview. We will begin with a short screening round.",
+  "flow_type": "llm_screening",
+  "sections": [
+    {
+      "id": "core_skills",
+      "title": "Core Skills",
+      "questions": []
+    }
+  ]
+}

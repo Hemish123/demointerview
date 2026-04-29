@@ -1,0 +1,240 @@
+{
+  "domain": "investment_banking",
+  "designation": "advanced_analyst_ib",
+  "label": "Advanced Analyst – Investment Banking",
+
+  "opening": "Welcome to the Advanced Analyst interview. Please introduce yourself.",
+
+  "role_intro_gate": {
+    "question": "Before we begin, can you explain what you understand about the role of {role} at JMS TechNova?",
+    "end_if_no": "Thank you for your time. Our team will be contact you. "
+  },
+
+  "flow_type": "sequential",
+
+  "sections": [
+
+    {
+      "id": "experience_screening",
+      "title": "Experience & Transaction Exposure",
+
+      "questions": [
+
+        {
+          "id": "ib_adv_exp_1",
+          "text": "Have you worked on live M&A, fundraising, or restructuring transactions?",
+          "type": "yes_no",
+          "branches": {
+            "yes": "ib_adv_exp_1a",
+            "no": "ib_adv_exp_1b"
+          },
+          "scoring_tags": ["deal_exposure"]
+        },
+
+        {
+          "id": "ib_adv_exp_1a",
+          "text": "How many years of transaction experience do you have?",
+          "type": "number",
+          "store_as": "transaction_years",
+          "note": "Captured only for reporting.",
+          "scoring_tags": ["experience_metadata"]
+        },
+
+        {
+          "id": "ib_adv_exp_1b",
+          "text": "What steps would you take to prepare yourself for a live transaction assignment?",
+          "type": "open",
+          "scoring_tags": ["learning_attitude"]
+        },
+
+        {
+          "id": "ib_adv_exp_2",
+          "text": "What types of deals or sectors have you worked on?",
+          "type": "open",
+          "followups": [
+            "Which deal was the most complex?",
+            "What was your specific role?"
+          ],
+          "scoring_tags": ["sector_experience", "deal_role"]
+        }
+      ]
+    },
+
+    {
+      "id": "advanced_financials",
+      "title": "Advanced Financial Statement Analysis",
+
+      "questions": [
+
+        {
+          "id": "ib_adv_fs_1",
+          "text": "How do you analyze revenue drivers and cost structures for a business?",
+          "type": "open",
+          "followups": [
+            "How do you assess operating leverage?",
+            "What red flags do you watch for?"
+          ],
+          "scoring_tags": ["financial_analysis"]
+        },
+
+        {
+          "id": "ib_adv_fs_2",
+          "text": "How do changes in working capital impact valuation?",
+          "type": "open",
+          "scoring_tags": ["working_capital"]
+        }
+      ]
+    },
+
+    {
+      "id": "valuation_mastery",
+      "title": "Valuation Mastery",
+
+      "questions": [
+
+        {
+          "id": "ib_adv_val_1",
+          "text": "Walk me through a complex DCF you built.",
+          "type": "open",
+          "followups": [
+            "How did you estimate WACC?",
+            "What scenario analyses did you run?"
+          ],
+          "scoring_tags": ["dcf_advanced"]
+        },
+
+        {
+          "id": "ib_adv_val_2",
+          "text": "How do you select comparable companies and transactions?",
+          "type": "open",
+          "followups": [
+            "How do you normalize EBITDA?",
+            "How do you treat outliers?"
+          ],
+          "scoring_tags": ["comps"]
+        }
+      ]
+    },
+
+    {
+      "id": "merger_models",
+      "title": "Merger Models & LBO Exposure",
+
+      "questions": [
+
+        {
+          "id": "ib_adv_mm_1",
+          "text": "Have you built merger or LBO models?",
+          "type": "yes_no",
+          "branches": {
+            "yes": "ib_adv_mm_1a",
+            "no": "ib_adv_mm_1b"
+          },
+          "scoring_tags": ["complex_models"]
+        },
+
+        {
+          "id": "ib_adv_mm_1a",
+          "text": "Describe the most complex transaction model you created.",
+          "type": "open",
+          "scoring_tags": ["model_complexity"]
+        },
+
+        {
+          "id": "ib_adv_mm_1b",
+          "text": "How would you approach learning to build merger or LBO models?",
+          "type": "open",
+          "scoring_tags": ["learning_attitude"]
+        },
+
+        {
+          "id": "ib_adv_mm_2",
+          "text": "Explain accretion and dilution in a merger.",
+          "type": "open",
+          "scoring_tags": ["accretion_dilution"]
+        }
+      ]
+    },
+
+    {
+      "id": "due_diligence",
+      "title": "Due Diligence & Deal Execution",
+
+      "questions": [
+
+        {
+          "id": "ib_adv_dd_1",
+          "text": "What are the most important areas of focus in financial due diligence?",
+          "type": "open",
+          "followups": [
+            "How do you analyze quality of earnings?",
+            "What deal breakers have you seen?"
+          ],
+          "scoring_tags": ["qoe", "risk_analysis"]
+        },
+
+        {
+          "id": "ib_adv_dd_2",
+          "text": "How do you manage multiple workstreams during a live deal?",
+          "type": "open",
+          "scoring_tags": ["project_management"]
+        }
+      ]
+    },
+
+    {
+      "id": "pitchbooks",
+      "title": "Pitchbooks & Client Materials",
+
+      "questions": [
+
+        {
+          "id": "ib_adv_pitch_1",
+          "text": "Have you independently drafted client presentations or CIMs?",
+          "type": "yes_no",
+          "branches": {
+            "yes": "ib_adv_pitch_1a",
+            "no": "ib_adv_pitch_1b"
+          },
+          "scoring_tags": ["pitchbooks"]
+        },
+
+        {
+          "id": "ib_adv_pitch_1a",
+          "text": "Which sections do you usually own in a pitchbook?",
+          "type": "open",
+          "scoring_tags": ["client_materials"]
+        },
+
+        {
+          "id": "ib_adv_pitch_1b",
+          "text": "How would you structure a full sell-side pitch deck?",
+          "type": "open",
+          "scoring_tags": ["storytelling"]
+        }
+      ]
+    },
+
+    {
+      "id": "markets_strategy",
+      "title": "Markets Awareness & Strategy",
+
+      "questions": [
+
+        {
+          "id": "ib_adv_mkt_1",
+          "text": "Which recent deals or IPOs have caught your attention?",
+          "type": "open",
+          "scoring_tags": ["market_awareness"]
+        },
+
+        {
+          "id": "ib_adv_mkt_2",
+          "text": "How do macroeconomic changes affect valuation and deal activity?",
+          "type": "open",
+          "scoring_tags": ["macro"]
+        }
+      ]
+    }
+  ]
+}

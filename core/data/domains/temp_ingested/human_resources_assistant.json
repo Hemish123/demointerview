@@ -1,0 +1,14 @@
+{
+  "domain": "Human Resources",
+  "designation": "human_resources_assistant",
+  "label": "Human Resources Assistant",
+  "opening": "Welcome to the Human Resources Assistant interview. We will begin with a short screening round.",
+  "flow_type": "llm_screening",
+  "sections": [
+    {
+      "id": "core_skills",
+      "title": "Core Skills",
+      "questions": []
+    }
+  ]
+}

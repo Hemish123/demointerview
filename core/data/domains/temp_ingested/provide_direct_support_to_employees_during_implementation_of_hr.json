@@ -1,0 +1,14 @@
+{
+  "domain": "HR",
+  "designation": "provide_direct_support_to_employees_during_implementation_of_hr",
+  "label": "- Provide direct support to employees during implementation of HR",
+  "opening": "Welcome to the - Provide direct support to employees during implementation of HR interview. We will begin with a short screening round.",
+  "flow_type": "llm_screening",
+  "sections": [
+    {
+      "id": "core_skills",
+      "title": "Core Skills",
+      "questions": []
+    }
+  ]
+}

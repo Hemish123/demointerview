@@ -1,0 +1,182 @@
+{
+  "domain": "investment_banking",
+  "designation": "manager_ib",
+  "label": "Manager – Investment Banking",
+
+  "opening": "Welcome to the Investment Banking Manager interview. Please introduce yourself.",
+
+  "role_intro_gate": {
+    "question": "Before we begin, can you explain what you understand about the role of {role} at JMS TechNova?",
+    "end_if_no": "Thank you for your time. Our team will be contact you. "
+  },
+
+  "flow_type": "sequential",
+
+  "sections": [
+
+    {
+      "id": "origination",
+      "title": "Deal Origination & Business Development",
+
+      "questions": [
+
+        {
+          "id": "ib_mgr_org_1",
+          "text": "Have you originated new client mandates or transactions?",
+          "type": "yes_no",
+          "branches": {
+            "yes": "ib_mgr_org_1a",
+            "no": "ib_mgr_org_1b"
+          },
+          "scoring_tags": ["origination"]
+        },
+
+        {
+          "id": "ib_mgr_org_1a",
+          "text": "How many years have you been originating deals?",
+          "type": "number",
+          "store_as": "origination_years",
+          "note": "Captured only for reporting.",
+          "scoring_tags": ["experience_metadata"]
+        },
+
+        {
+          "id": "ib_mgr_org_1b",
+          "text": "How would you begin building an origination pipeline in a new sector?",
+          "type": "open",
+          "scoring_tags": ["strategy"]
+        },
+
+        {
+          "id": "ib_mgr_org_2",
+          "text": "Describe the most significant mandate you have originated.",
+          "type": "open",
+          "followups": [
+            "How did you identify the opportunity?",
+            "What objections did the client raise?"
+          ],
+          "scoring_tags": ["deal_origination"]
+        }
+      ]
+    },
+
+    {
+      "id": "client_relationships",
+      "title": "Client Relationship Management",
+
+      "questions": [
+
+        {
+          "id": "ib_mgr_cli_1",
+          "text": "How do you maintain long-term relationships with CFOs, founders, or PE sponsors?",
+          "type": "open",
+          "followups": [
+            "How do you stay top-of-mind with clients?",
+            "How do you cross-sell services?"
+          ],
+          "scoring_tags": ["client_relationships"]
+        },
+
+        {
+          "id": "ib_mgr_cli_2",
+          "text": "How do you handle difficult negotiations with counterparties?",
+          "type": "open",
+          "scoring_tags": ["negotiation"]
+        }
+      ]
+    },
+
+    {
+      "id": "transaction_control",
+      "title": "Transaction Leadership & Risk Management",
+
+      "questions": [
+
+        {
+          "id": "ib_mgr_trx_1",
+          "text": "How do you oversee all workstreams on a transaction?",
+          "type": "open",
+          "followups": [
+            "How do you identify deal risks early?",
+            "How do you decide when to walk away?"
+          ],
+          "scoring_tags": ["transaction_leadership", "risk_management"]
+        },
+
+        {
+          "id": "ib_mgr_trx_2",
+          "text": "How do you ensure regulatory, legal, and financial diligence is robust?",
+          "type": "open",
+          "scoring_tags": ["due_diligence"]
+        }
+      ]
+    },
+
+    {
+      "id": "valuation_strategy",
+      "title": "Valuation Strategy & Judgment",
+
+      "questions": [
+
+        {
+          "id": "ib_mgr_val_1",
+          "text": "How do you challenge valuation conclusions before presenting them to a client?",
+          "type": "open",
+          "followups": [
+            "What scenarios do you insist on reviewing?",
+            "How do you assess downside risk?"
+          ],
+          "scoring_tags": ["valuation_strategy"]
+        },
+
+        {
+          "id": "ib_mgr_val_2",
+          "text": "Describe a time you advised a client not to pursue a transaction.",
+          "type": "open",
+          "scoring_tags": ["judgment", "ethics"]
+        }
+      ]
+    },
+
+    {
+      "id": "team_leadership",
+      "title": "Leadership & Talent Development",
+
+      "questions": [
+
+        {
+          "id": "ib_mgr_team_1",
+          "text": "How do you build and retain high-performing deal teams?",
+          "type": "open",
+          "followups": [
+            "How do you evaluate senior bankers?",
+            "How do you handle underperformance?"
+          ],
+          "scoring_tags": ["talent_management"]
+        }
+      ]
+    },
+
+    {
+      "id": "market_strategy",
+      "title": "Market Strategy & Sector Views",
+
+      "questions": [
+
+        {
+          "id": "ib_mgr_mkt_1",
+          "text": "Which sectors or themes will drive M&A activity over the next two years?",
+          "type": "open",
+          "scoring_tags": ["sector_views"]
+        },
+
+        {
+          "id": "ib_mgr_mkt_2",
+          "text": "How do geopolitical or interest-rate changes affect deal pipelines?",
+          "type": "open",
+          "scoring_tags": ["macro"]
+        }
+      ]
+    }
+  ]
+}

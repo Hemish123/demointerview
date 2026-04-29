@@ -1,0 +1,220 @@
+{
+  "domain": "investment_banking",
+  "designation": "senior_analyst_ib",
+  "label": "Senior Analyst – Investment Banking",
+
+  "opening": "Welcome to the Senior Analyst interview. Please introduce yourself.",
+
+  "role_intro_gate": {
+    "question": "Before we begin, can you explain what you understand about the role of {role} at JMS TechNova?",
+    "end_if_no": "Thank you for your time. Our team will be contact you. "
+  },
+
+
+  "flow_type": "sequential",
+
+  "sections": [
+
+    {
+      "id": "leadership_experience",
+      "title": "Leadership & Deal Exposure",
+
+      "questions": [
+
+        {
+          "id": "ib_sen_exp_1",
+          "text": "Have you led valuation or modeling workstreams on live transactions?",
+          "type": "yes_no",
+          "branches": {
+            "yes": "ib_sen_exp_1a",
+            "no": "ib_sen_exp_1b"
+          },
+          "scoring_tags": ["workstream_leadership"]
+        },
+
+        {
+          "id": "ib_sen_exp_1a",
+          "text": "How many years of experience do you have leading such workstreams?",
+          "type": "number",
+          "store_as": "lead_years",
+          "note": "Captured only for reporting.",
+          "scoring_tags": ["experience_metadata"]
+        },
+
+        {
+          "id": "ib_sen_exp_1b",
+          "text": "How would you prepare yourself to lead a workstream on your first assignment?",
+          "type": "open",
+          "scoring_tags": ["learning_attitude"]
+        },
+
+        {
+          "id": "ib_sen_exp_2",
+          "text": "Describe the most complex transaction you have worked on.",
+          "type": "open",
+          "followups": [
+            "What were the biggest risks?",
+            "How were they mitigated?"
+          ],
+          "scoring_tags": ["transaction_complexity", "risk_management"]
+        }
+      ]
+    },
+
+    {
+      "id": "valuation_mastery",
+      "title": "Valuation Leadership",
+
+      "questions": [
+
+        {
+          "id": "ib_sen_val_1",
+          "text": "Walk me through the most challenging valuation you have handled.",
+          "type": "open",
+          "followups": [
+            "Which method carried the most weight?",
+            "How did you stress-test assumptions?"
+          ],
+          "scoring_tags": ["valuation_leadership"]
+        },
+
+        {
+          "id": "ib_sen_val_2",
+          "text": "How do you review a junior analyst’s financial model?",
+          "type": "open",
+          "followups": [
+            "What are the most common errors you catch?",
+            "How do you ensure auditability?"
+          ],
+          "scoring_tags": ["model_review", "quality_control"]
+        }
+      ]
+    },
+
+    {
+      "id": "deal_execution",
+      "title": "Deal Execution & Due Diligence",
+
+      "questions": [
+
+        {
+          "id": "ib_sen_exec_1",
+          "text": "How do you oversee financial due diligence on a transaction?",
+          "type": "open",
+          "followups": [
+            "How do you analyze Quality of Earnings?",
+            "How do you escalate critical issues?"
+          ],
+          "scoring_tags": ["due_diligence", "qoe"]
+        },
+
+        {
+          "id": "ib_sen_exec_2",
+          "text": "How do you balance speed and accuracy during a live deal?",
+          "type": "open",
+          "scoring_tags": ["execution_pressure"]
+        }
+      ]
+    },
+
+    {
+      "id": "client_interaction",
+      "title": "Client Interaction & Communication",
+
+      "questions": [
+
+        {
+          "id": "ib_sen_cli_1",
+          "text": "Have you directly interacted with clients during deals?",
+          "type": "yes_no",
+          "branches": {
+            "yes": "ib_sen_cli_1a",
+            "no": "ib_sen_cli_1b"
+          },
+          "scoring_tags": ["client_exposure"]
+        },
+
+        {
+          "id": "ib_sen_cli_1a",
+          "text": "What types of client discussions have you led?",
+          "type": "open",
+          "scoring_tags": ["client_management"]
+        },
+
+        {
+          "id": "ib_sen_cli_1b",
+          "text": "How would you prepare to handle client communication at a senior level?",
+          "type": "open",
+          "scoring_tags": ["client_readiness"]
+        }
+      ]
+    },
+
+    {
+      "id": "pitchbooks_strategy",
+      "title": "Pitchbooks & Strategic Messaging",
+
+      "questions": [
+
+        {
+          "id": "ib_sen_pitch_1",
+          "text": "How do you craft the investment thesis in a pitchbook?",
+          "type": "open",
+          "followups": [
+            "How do you tailor it to a client?",
+            "How do you highlight value creation?"
+          ],
+          "scoring_tags": ["investment_thesis"]
+        },
+
+        {
+          "id": "ib_sen_pitch_2",
+          "text": "How do you review decks before sending them to clients?",
+          "type": "open",
+          "scoring_tags": ["presentation_quality"]
+        }
+      ]
+    },
+
+    {
+      "id": "mentorship",
+      "title": "Mentoring & Team Development",
+
+      "questions": [
+
+        {
+          "id": "ib_sen_team_1",
+          "text": "How do you mentor junior analysts?",
+          "type": "open",
+          "followups": [
+            "How do you give constructive feedback?",
+            "How do you upskill your team?"
+          ],
+          "scoring_tags": ["mentorship", "leadership"]
+        }
+      ]
+    },
+
+    {
+      "id": "market_awareness",
+      "title": "Market Awareness & Strategy",
+
+      "questions": [
+
+        {
+          "id": "ib_sen_mkt_1",
+          "text": "Which recent deals or IPOs have you followed closely?",
+          "type": "open",
+          "scoring_tags": ["market_awareness"]
+        },
+
+        {
+          "id": "ib_sen_mkt_2",
+          "text": "How do interest rates and economic cycles affect deal activity?",
+          "type": "open",
+          "scoring_tags": ["macro"]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,306 @@
+{
+  "domain": "it",
+  "designation": "associate_it",
+  "label": "Associate – Information Technology",
+
+  "opening": "Welcome to the IT Associate interview. Please introduce yourself.",
+
+  "role_intro_gate": {
+    "question": "Before we begin, can you explain what you understand about the role of {role} at JMS TechNova?",
+    "end_if_no": "Thank you for your time. Our team will be contact you. "
+  },
+
+  "flow_type": "sequential",
+
+  "sections": [
+
+    {
+      "id": "experience_screening",
+      "title": "Experience & IT Exposure",
+
+      "questions": [
+
+        {
+          "id": "it_exp_1",
+          "text": "Have you worked in IT support, system administration, or technical operations before?",
+          "type": "yes_no",
+
+          "branches": {
+            "yes": "it_exp_1a",
+            "no": "it_exp_1b"
+          },
+
+          "scoring_tags": ["it_exposure"]
+        },
+
+        {
+          "id": "it_exp_1a",
+          "text": "How many years of hands-on IT experience do you have?",
+          "type": "number",
+
+          "store_as": "it_years",
+
+          "note": "Captured only for reporting purposes.",
+
+          "scoring_tags": ["experience_metadata"]
+        },
+
+        {
+          "id": "it_exp_1b",
+          "text": "Have you gained IT exposure through internships, certifications, labs, or coursework?",
+          "type": "open",
+
+          "scoring_tags": ["learning_attitude"]
+        },
+
+        {
+          "id": "it_exp_2",
+          "text": "Why did you choose a career in Information Technology?",
+          "type": "open",
+
+          "followups": [
+            "Which technologies interest you most?",
+            "Do you prefer infrastructure, support, or development roles?"
+          ],
+
+          "scoring_tags": ["motivation", "career_clarity"]
+        }
+      ]
+    },
+
+    {
+      "id": "hardware_os",
+      "title": "Hardware & Operating Systems",
+
+      "questions": [
+
+        {
+          "id": "it_hw_1",
+          "text": "Have you troubleshot desktop or laptop hardware issues?",
+          "type": "yes_no",
+
+          "branches": {
+            "yes": "it_hw_1a",
+            "no": "it_hw_1b"
+          },
+
+          "scoring_tags": ["hardware_support"]
+        },
+
+        {
+          "id": "it_hw_1a",
+          "text": "What types of hardware problems have you resolved?",
+          "type": "open",
+
+          "scoring_tags": ["troubleshooting"]
+        },
+
+        {
+          "id": "it_hw_1b",
+          "text": "How would you diagnose a computer that does not power on?",
+          "type": "open",
+
+          "scoring_tags": ["problem_solving"]
+        },
+
+        {
+          "id": "it_os_1",
+          "text": "Which operating systems have you worked with?",
+          "type": "open",
+
+          "followups": [
+            "What are common Windows issues?",
+            "Have you used Linux or macOS?"
+          ],
+
+          "scoring_tags": ["operating_systems"]
+        }
+      ]
+    },
+
+    {
+      "id": "networking",
+      "title": "Networking Fundamentals",
+
+      "questions": [
+
+        {
+          "id": "it_net_1",
+          "text": "Do you have experience troubleshooting network connectivity issues?",
+          "type": "yes_no",
+
+          "branches": {
+            "yes": "it_net_1a",
+            "no": "it_net_1b"
+          },
+
+          "scoring_tags": ["networking_basics"]
+        },
+
+        {
+          "id": "it_net_1a",
+          "text": "What kinds of network problems have you resolved?",
+          "type": "open",
+
+          "scoring_tags": ["network_troubleshooting"]
+        },
+
+        {
+          "id": "it_net_1b",
+          "text": "How would you troubleshoot a user who cannot access the internet?",
+          "type": "open",
+
+          "scoring_tags": ["diagnostic_skills"]
+        },
+
+        {
+          "id": "it_net_2",
+          "text": "Explain what DNS and DHCP do in simple terms.",
+          "type": "open",
+
+          "scoring_tags": ["dns", "dhcp"]
+        }
+      ]
+    },
+
+    {
+      "id": "security_basics",
+      "title": "IT Security Awareness",
+
+      "questions": [
+
+        {
+          "id": "it_sec_1",
+          "text": "Have you handled any IT security incidents or alerts?",
+          "type": "yes_no",
+
+          "branches": {
+            "yes": "it_sec_1a",
+            "no": "it_sec_1b"
+          },
+
+          "scoring_tags": ["security_exposure"]
+        },
+
+        {
+          "id": "it_sec_1a",
+          "text": "Describe the incident and how it was resolved.",
+          "type": "open",
+
+          "scoring_tags": ["incident_response"]
+        },
+
+        {
+          "id": "it_sec_1b",
+          "text": "What steps would you take if you suspect malware on a workstation?",
+          "type": "open",
+
+          "scoring_tags": ["security_basics"]
+        },
+
+        {
+          "id": "it_sec_2",
+          "text": "How do you educate users about cybersecurity best practices?",
+          "type": "open",
+
+          "scoring_tags": ["user_awareness"]
+        }
+      ]
+    },
+
+    {
+      "id": "systems_tools",
+      "title": "Systems, Tools & Ticketing",
+
+      "questions": [
+
+        {
+          "id": "it_tool_1",
+          "text": "Have you used any ticketing systems such as ServiceNow, Jira, or Freshservice?",
+          "type": "yes_no",
+
+          "branches": {
+            "yes": "it_tool_1a",
+            "no": "it_tool_1b"
+          },
+
+          "scoring_tags": ["ticketing"]
+        },
+
+        {
+          "id": "it_tool_1a",
+          "text": "How did you prioritize and resolve tickets?",
+          "type": "open",
+
+          "scoring_tags": ["incident_management"]
+        },
+
+        {
+          "id": "it_tool_1b",
+          "text": "How would you organize IT support requests in a new environment?",
+          "type": "open",
+
+          "scoring_tags": ["process_design"]
+        },
+
+        {
+          "id": "it_tool_2",
+          "text": "Which monitoring or administration tools have you worked with?",
+          "type": "open",
+
+          "scoring_tags": ["monitoring_tools"]
+        }
+      ]
+    },
+
+    {
+      "id": "communication_process",
+      "title": "Communication & IT Processes",
+
+      "questions": [
+
+        {
+          "id": "it_com_1",
+          "text": "How do you explain technical problems to non-technical users?",
+          "type": "open",
+
+          "followups": [
+            "Can you give an example?",
+            "How do you keep users calm during outages?"
+          ],
+
+          "scoring_tags": ["communication"]
+        },
+
+        {
+          "id": "it_proc_1",
+          "text": "Why are documentation and SOPs important in IT operations?",
+          "type": "open",
+
+          "scoring_tags": ["documentation", "process_control"]
+        }
+      ]
+    },
+
+    {
+      "id": "learning_growth",
+      "title": "Learning & Career Growth",
+
+      "questions": [
+
+        {
+          "id": "it_lrn_1",
+          "text": "How do you keep your technical skills up to date?",
+          "type": "open",
+
+          "followups": [
+            "Which certifications interest you?",
+            "What technologies do you want to learn next?"
+          ],
+
+          "scoring_tags": ["continuous_learning"]
+        }
+      ]
+    }
+  ]
+}

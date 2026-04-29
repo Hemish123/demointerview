@@ -1,0 +1,23 @@
+{
+    "session_id": "c9ab801e-0384-4a2c-a30a-e5a87937a8b3",
+    "company": "JMS TechNova",
+    "role_label": "Assistant Manager (IB)",
+    "designation": "assistant_manager_ib",
+    "phase": "role_check",
+    "finished": false,
+    "candidate_name": "Daksh Patel",
+    "last_answer": "",
+    "answers": {},
+    "topics_asked": [],
+    "current_topic": null,
+    "awaiting_experience": false,
+    "llm_hr_count": 0,
+    "hr_limit": null,
+    "total_questions_asked": 1,
+    "total_limit": 19,
+    "last_question": {
+        "id": "role_confirm",
+        "text": "Thank you Daksh Patel. Do you have knowledge about the Assistant Manager (IB) role?",
+        "source": "system"
+    }
+}

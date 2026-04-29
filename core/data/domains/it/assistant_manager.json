@@ -1,0 +1,243 @@
+{
+  "domain": "it",
+  "designation": "assistant_manager_it",
+  "label": "Assistant Manager – Information Technology",
+
+  "opening": "Welcome to the Assistant Manager IT interview. Please introduce yourself .",
+
+  "role_intro_gate": {
+    "question": "Before we begin, can you explain what you understand about the role of {role} at JMS TechNova?",
+    "end_if_no": "Thank you for your time. Our team will be contact you. "
+  },
+
+  "flow_type": "sequential",
+
+  "sections": [
+
+    {
+      "id": "operations_leadership",
+      "title": "Operations Leadership & Escalations",
+
+      "questions": [
+
+        {
+          "id": "it_am_exp_1",
+          "text": "Have you led IT operations teams during critical outages?",
+          "type": "yes_no",
+
+          "branches": {
+            "yes": "it_am_exp_1a",
+            "no": "it_am_exp_1b"
+          },
+
+          "scoring_tags": ["operations_leadership"]
+        },
+
+        {
+          "id": "it_am_exp_1a",
+          "text": "How many years of experience do you have managing IT operations teams?",
+          "type": "number",
+
+          "store_as": "ops_years",
+
+          "note": "Captured only for reporting purposes.",
+
+          "scoring_tags": ["experience_metadata"]
+        },
+
+        {
+          "id": "it_am_exp_1b",
+          "text": "How would you prepare to lead operations in a high-pressure environment?",
+          "type": "open",
+
+          "scoring_tags": ["learning_attitude"]
+        },
+
+        {
+          "id": "it_am_exp_2",
+          "text": "Describe the most serious outage you have overseen.",
+          "type": "open",
+
+          "followups": [
+            "What was the root cause?",
+            "What preventive measures were introduced?"
+          ],
+
+          "scoring_tags": ["major_incident", "root_cause"]
+        }
+      ]
+    },
+
+    {
+      "id": "infrastructure_strategy",
+      "title": "Infrastructure Ownership & Planning",
+
+      "questions": [
+
+        {
+          "id": "it_am_inf_1",
+          "text": "Which infrastructure components have you owned or managed?",
+          "type": "open",
+
+          "followups": [
+            "Servers, storage, cloud, networking?",
+            "How did you plan capacity?"
+          ],
+
+          "scoring_tags": ["infrastructure"]
+        },
+
+        {
+          "id": "it_am_inf_2",
+          "text": "How do you design systems for high availability and disaster recovery?",
+          "type": "open",
+
+          "scoring_tags": ["ha_dr"]
+        }
+      ]
+    },
+
+    {
+      "id": "security_governance",
+      "title": "Security & Compliance Governance",
+
+      "questions": [
+
+        {
+          "id": "it_am_sec_1",
+          "text": "Have you overseen security operations or audits?",
+          "type": "yes_no",
+
+          "branches": {
+            "yes": "it_am_sec_1a",
+            "no": "it_am_sec_1b"
+          },
+
+          "scoring_tags": ["security_governance"]
+        },
+
+        {
+          "id": "it_am_sec_1a",
+          "text": "Describe your role in security audits or incident response.",
+          "type": "open",
+
+          "scoring_tags": ["audit_response"]
+        },
+
+        {
+          "id": "it_am_sec_1b",
+          "text": "How would you strengthen security governance in your team?",
+          "type": "open",
+
+          "scoring_tags": ["security_strategy"]
+        }
+      ]
+    },
+
+    {
+      "id": "automation_tools",
+      "title": "Automation, Monitoring & Tooling",
+
+      "questions": [
+
+        {
+          "id": "it_am_auto_1",
+          "text": "What automation or monitoring platforms have you implemented?",
+          "type": "open",
+
+          "scoring_tags": ["automation", "monitoring"]
+        },
+
+        {
+          "id": "it_am_auto_2",
+          "text": "How do you measure system performance and service quality?",
+          "type": "open",
+
+          "scoring_tags": ["metrics", "sla"]
+        }
+      ]
+    },
+
+    {
+      "id": "vendor_sla",
+      "title": "Vendor Management & SLA Control",
+
+      "questions": [
+
+        {
+          "id": "it_am_ven_1",
+          "text": "Have you managed vendors or third-party service providers?",
+          "type": "yes_no",
+
+          "branches": {
+            "yes": "it_am_ven_1a",
+            "no": "it_am_ven_1b"
+          },
+
+          "scoring_tags": ["vendor_management"]
+        },
+
+        {
+          "id": "it_am_ven_1a",
+          "text": "How did you monitor SLAs and performance?",
+          "type": "open",
+
+          "scoring_tags": ["sla_management"]
+        },
+
+        {
+          "id": "it_am_ven_1b",
+          "text": "How would you approach selecting and onboarding a new IT vendor?",
+          "type": "open",
+
+          "scoring_tags": ["procurement"]
+        }
+      ]
+    },
+
+    {
+      "id": "team_development",
+      "title": "Team Leadership & Development",
+
+      "questions": [
+
+        {
+          "id": "it_am_team_1",
+          "text": "How do you develop senior engineers and team leads?",
+          "type": "open",
+
+          "followups": [
+            "How do you plan training?",
+            "How do you handle performance issues?"
+          ],
+
+          "scoring_tags": ["people_management"]
+        }
+      ]
+    },
+
+    {
+      "id": "business_alignment",
+      "title": "Business Alignment & Strategic Planning",
+
+      "questions": [
+
+        {
+          "id": "it_am_bus_1",
+          "text": "How do you align IT operations with business goals?",
+          "type": "open",
+
+          "scoring_tags": ["strategy_alignment"]
+        },
+
+        {
+          "id": "it_am_bus_2",
+          "text": "How do you justify infrastructure investments to leadership?",
+          "type": "open",
+
+          "scoring_tags": ["budgeting"]
+        }
+      ]
+    }
+  ]
+}

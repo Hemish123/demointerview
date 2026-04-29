@@ -1,0 +1,289 @@
+{
+  "domain": "investment_banking",
+  "designation": "analyst_ib",
+  "label": "Analyst – Investment Banking",
+
+  "opening": "Welcome to the Investment Banking Analyst interview. Please introduce yourself.",
+
+  "role_intro_gate": {
+    "question": "Before we begin, can you explain what you understand about the role of {role} at JMS TechNova?",
+    "end_if_no": "Thank you for your time. Our team will be contact you. "
+  },
+
+  "flow_type": "sequential",
+
+  "sections": [
+
+    {
+      "id": "experience_screening",
+      "title": "Experience & Exposure",
+
+      "questions": [
+
+        {
+          "id": "ib_exp_1",
+          "text": "Have you worked in investment banking, equity research, private equity, or corporate finance before?",
+          "type": "yes_no",
+          "branches": {
+            "yes": "ib_exp_1a",
+            "no": "ib_exp_1b"
+          },
+          "scoring_tags": ["finance_exposure"]
+        },
+
+        {
+          "id": "ib_exp_1a",
+          "text": "How many years of relevant experience do you have?",
+          "type": "number",
+          "store_as": "finance_years",
+          "note": "Captured only for reporting purposes.",
+          "scoring_tags": ["experience_metadata"]
+        },
+
+        {
+          "id": "ib_exp_1b",
+          "text": "Have you gained exposure through internships, courses, certifications, or case competitions?",
+          "type": "open",
+          "scoring_tags": ["learning_attitude"]
+        },
+
+        {
+          "id": "ib_exp_2",
+          "text": "Why do you want to pursue a career in investment banking?",
+          "type": "open",
+          "followups": [
+            "Which part of the role interests you most?",
+            "Which banks or deal types attract you?"
+          ],
+          "scoring_tags": ["motivation", "career_clarity"]
+        }
+      ]
+    },
+
+    {
+      "id": "financial_statements",
+      "title": "Financial Statements",
+
+      "questions": [
+
+        {
+          "id": "ib_fs_1",
+          "text": "Walk me through the three financial statements and how they are linked.",
+          "type": "open",
+          "followups": [
+            "What happens if depreciation increases?",
+            "How does working capital affect cash flow?"
+          ],
+          "scoring_tags": ["three_statements"]
+        },
+
+        {
+          "id": "ib_fs_2",
+          "text": "Which line items would you focus on when analyzing a company?",
+          "type": "open",
+          "followups": [
+            "How do margins tell a story?",
+            "Which red flags concern you?"
+          ],
+          "scoring_tags": ["financial_analysis"]
+        }
+      ]
+    },
+
+    {
+      "id": "valuation",
+      "title": "Valuation Techniques",
+
+      "questions": [
+
+        {
+          "id": "ib_val_1",
+          "text": "What valuation methods are commonly used in investment banking?",
+          "type": "open",
+          "followups": [
+            "When is DCF preferred?",
+            "What are trading vs transaction multiples?"
+          ],
+          "scoring_tags": ["valuation_methods"]
+        },
+
+        {
+          "id": "ib_val_2",
+          "text": "Explain a DCF valuation in detail.",
+          "type": "open",
+          "followups": [
+            "How do you calculate WACC?",
+            "How do you estimate terminal value?",
+            "What assumptions matter most?"
+          ],
+          "scoring_tags": ["dcf", "wacc"]
+        },
+
+        {
+          "id": "ib_val_3",
+          "text": "How would you value a company with negative cash flows?",
+          "type": "open",
+          "followups": [
+            "Which methods become unreliable?",
+            "What alternatives exist?"
+          ],
+          "scoring_tags": ["valuation_edge_cases"]
+        }
+      ]
+    },
+
+    {
+      "id": "modeling",
+      "title": "Financial Modeling",
+
+      "questions": [
+
+        {
+          "id": "ib_mod_1",
+          "text": "Have you built full three-statement financial models?",
+          "type": "yes_no",
+          "branches": {
+            "yes": "ib_mod_1a",
+            "no": "ib_mod_1b"
+          },
+          "scoring_tags": ["modeling_exposure"]
+        },
+
+        {
+          "id": "ib_mod_1a",
+          "text": "Describe the most complex model you built.",
+          "type": "open",
+          "scoring_tags": ["model_complexity"]
+        },
+
+        {
+          "id": "ib_mod_1b",
+          "text": "How would you approach learning to build a financial model quickly?",
+          "type": "open",
+          "scoring_tags": ["learning_attitude"]
+        },
+
+        {
+          "id": "ib_mod_2",
+          "text": "How do you forecast revenue for a company?",
+          "type": "open",
+          "followups": [
+            "What drivers matter most?",
+            "How do you validate assumptions?"
+          ],
+          "scoring_tags": ["forecasting"]
+        },
+
+        {
+          "id": "ib_mod_3",
+          "text": "Explain working capital in a model.",
+          "type": "open",
+          "scoring_tags": ["working_capital"]
+        }
+      ]
+    },
+
+    {
+      "id": "transactions",
+      "title": "Deals & Due Diligence",
+
+      "questions": [
+
+        {
+          "id": "ib_trx_1",
+          "text": "Have you supported any live transactions or due-diligence processes?",
+          "type": "yes_no",
+          "branches": {
+            "yes": "ib_trx_1a",
+            "no": "ib_trx_1b"
+          },
+          "scoring_tags": ["deal_exposure"]
+        },
+
+        {
+          "id": "ib_trx_1a",
+          "text": "What was your role in that transaction?",
+          "type": "open",
+          "scoring_tags": ["transaction_role"]
+        },
+
+        {
+          "id": "ib_trx_1b",
+          "text": "How would you prepare for due diligence on a new client?",
+          "type": "open",
+          "scoring_tags": ["diligence_process"]
+        },
+
+        {
+          "id": "ib_trx_2",
+          "text": "What information is usually requested during financial due diligence?",
+          "type": "open",
+          "followups": [
+            "How do you analyze quality of earnings?",
+            "What risks typically surface?"
+          ],
+          "scoring_tags": ["qoe", "risk_analysis"]
+        }
+      ]
+    },
+
+    {
+      "id": "pitchbooks",
+      "title": "Pitchbooks & Presentations",
+
+      "questions": [
+
+        {
+          "id": "ib_pitch_1",
+          "text": "Have you worked on pitchbooks or CIMs?",
+          "type": "yes_no",
+          "branches": {
+            "yes": "ib_pitch_1a",
+            "no": "ib_pitch_1b"
+          },
+          "scoring_tags": ["pitchbooks"]
+        },
+
+        {
+          "id": "ib_pitch_1a",
+          "text": "Which sections did you prepare most often?",
+          "type": "open",
+          "scoring_tags": ["presentation_skills"]
+        },
+
+        {
+          "id": "ib_pitch_1b",
+          "text": "How would you structure a pitch deck for a potential client?",
+          "type": "open",
+          "scoring_tags": ["storytelling"]
+        }
+      ]
+    },
+
+    {
+      "id": "markets_research",
+      "title": "Markets & Industry Research",
+
+      "questions": [
+
+        {
+          "id": "ib_mkt_1",
+          "text": "How do you conduct industry or market research?",
+          "type": "open",
+          "followups": [
+            "Which sources do you rely on?",
+            "How do you size a market?"
+          ],
+          "scoring_tags": ["industry_research"]
+        },
+
+        {
+          "id": "ib_mkt_2",
+          "text": "What recent deal or transaction caught your attention and why?",
+          "type": "open",
+          "scoring_tags": ["market_awareness"]
+        }
+      ]
+    }
+  ]
+}

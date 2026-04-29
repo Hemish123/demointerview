@@ -1,0 +1,14 @@
+{
+  "domain": "HR",
+  "designation": "interfaces_with_company_managers_and_hr_staff_company_xyz_is",
+  "label": "interfaces with company managers and HR staff. Company XYZ is",
+  "opening": "Welcome to the interfaces with company managers and HR staff. Company XYZ is interview. We will begin with a short screening round.",
+  "flow_type": "llm_screening",
+  "sections": [
+    {
+      "id": "core_skills",
+      "title": "Core Skills",
+      "questions": []
+    }
+  ]
+}

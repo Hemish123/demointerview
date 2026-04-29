@@ -1,0 +1,223 @@
+{
+  "domain": "internal_accounts",
+  "designation": "senior_associate_accounts",
+  "label": "Senior Associate – Internal Accounting",
+
+  "opening": "Welcome to the Senior Associate Internal Accounts interview. Please introduce yourself.",
+
+  "role_intro_gate": {
+    "question": "Before we begin, can you explain what you understand about the role of {role} at JMS TechNova?",
+    "end_if_no": "Thank you for your time. Our team will be contact you. "
+  },
+
+  "flow_type": "sequential",
+
+  "sections": [
+
+    {
+      "id": "senior_exposure",
+      "title": "Accounting & Compliance Exposure",
+
+      "questions": [
+
+        {
+          "id": "sacc_exp_1",
+          "text": "Have you independently handled statutory compliances such as GST, TDS, or income tax returns?",
+          "type": "yes_no",
+
+          "branches": {
+            "yes": "sacc_exp_1a",
+            "no": "sacc_exp_1b"
+          },
+
+          "scoring_tags": ["statutory_exposure"]
+        },
+
+        {
+          "id": "sacc_exp_1a",
+          "text": "How many years of experience do you have handling statutory compliances?",
+          "type": "number",
+
+          "store_as": "statutory_years",
+
+          "note": "Captured for reporting only. Not used for rejection.",
+
+          "scoring_tags": ["experience_metadata"]
+        },
+
+        {
+          "id": "sacc_exp_1b",
+          "text": "Have you supported senior team members with compliance filings or audits?",
+          "type": "open",
+
+          "scoring_tags": ["learning_attitude"]
+        },
+
+        {
+          "id": "sacc_exp_2",
+          "text": "Describe your involvement in month-end closing activities.",
+          "type": "open",
+
+          "followups": [
+            "Which ledgers do you review carefully?",
+            "How do you ensure completeness of entries?"
+          ],
+
+          "scoring_tags": ["month_end", "controls"]
+        }
+      ]
+    },
+
+    {
+      "id": "taxation_advanced",
+      "title": "Advanced Taxation & Returns",
+
+      "questions": [
+
+        {
+          "id": "sacc_tax_1",
+          "text": "Explain how GST returns are prepared and filed.",
+          "type": "open",
+
+          "followups": [
+            "How do you reconcile GSTR-2B?",
+            "How do you handle GST notices?"
+          ],
+
+          "scoring_tags": ["gst_returns", "gst_reconciliation"]
+        },
+
+        {
+          "id": "sacc_tax_2",
+          "text": "What steps are involved in preparing and filing TDS returns?",
+          "type": "open",
+
+          "followups": [
+            "How do you issue Form 16 or 16A?",
+            "How do you handle TDS defaults?"
+          ],
+
+          "scoring_tags": ["tds_returns", "tds_defaults"]
+        }
+      ]
+    },
+
+    {
+      "id": "financial_statements",
+      "title": "Financial Statements & Analysis",
+
+      "questions": [
+
+        {
+          "id": "sacc_fin_1",
+          "text": "How do you prepare or review a Balance Sheet and Profit & Loss statement?",
+          "type": "open",
+
+          "followups": [
+            "Which areas require the most scrutiny?",
+            "How do you identify unusual variances?"
+          ],
+
+          "scoring_tags": ["financial_statements", "analysis"]
+        },
+
+        {
+          "id": "sacc_fin_2",
+          "text": "What budgeting or variance analysis work have you performed?",
+          "type": "open",
+
+          "followups": [
+            "How do you explain variances to management?",
+            "What tools do you use for analysis?"
+          ],
+
+          "scoring_tags": ["budgeting", "variance_analysis"]
+        }
+      ]
+    },
+
+    {
+      "id": "payroll_mis",
+      "title": "Payroll & MIS Reporting",
+
+      "questions": [
+
+        {
+          "id": "sacc_pay_1",
+          "text": "Have you been involved in payroll processing from an accounting perspective?",
+          "type": "yes_no",
+
+          "branches": {
+            "yes": "sacc_pay_1a",
+            "no": "sacc_pay_1b"
+          },
+
+          "scoring_tags": ["payroll_exposure"]
+        },
+
+        {
+          "id": "sacc_pay_1a",
+          "text": "What payroll components did you review or process?",
+          "type": "open",
+
+          "scoring_tags": ["salary_components"]
+        },
+
+        {
+          "id": "sacc_pay_1b",
+          "text": "How would you support payroll accounting if assigned?",
+          "type": "open",
+
+          "scoring_tags": ["learning_attitude"]
+        },
+
+        {
+          "id": "sacc_mis_1",
+          "text": "What MIS or management reports have you prepared?",
+          "type": "open",
+
+          "followups": [
+            "How frequently were they generated?",
+            "Who were the stakeholders?"
+          ],
+
+          "scoring_tags": ["mis_reporting", "stakeholder_management"]
+        }
+      ]
+    },
+
+    {
+      "id": "controls_coordination",
+      "title": "Controls & Cross-Functional Coordination",
+
+      "questions": [
+
+        {
+          "id": "sacc_ctrl_1",
+          "text": "How do you ensure internal controls are followed in daily accounting operations?",
+          "type": "open",
+
+          "followups": [
+            "What checks prevent fraud?",
+            "How do you document controls?"
+          ],
+
+          "scoring_tags": ["internal_controls", "risk_management"]
+        },
+
+        {
+          "id": "sacc_coord_1",
+          "text": "Describe how you coordinate with auditors or external consultants.",
+          "type": "open",
+
+          "followups": [
+            "What documents are usually requested?",
+            "How do you manage audit timelines?"
+          ],
+
+          "scoring_tags": ["audit_coordination", "communication"]
+        }
+      ]
+    }
+  ]
+}

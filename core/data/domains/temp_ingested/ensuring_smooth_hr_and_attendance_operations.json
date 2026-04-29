@@ -1,0 +1,14 @@
+{
+  "domain": "HR",
+  "designation": "ensuring_smooth_hr_and_attendance_operations",
+  "label": "ensuring smooth HR and attendance operations.",
+  "opening": "Welcome to the ensuring smooth HR and attendance operations. interview. We will begin with a short screening round.",
+  "flow_type": "llm_screening",
+  "sections": [
+    {
+      "id": "core_skills",
+      "title": "Core Skills",
+      "questions": []
+    }
+  ]
+}

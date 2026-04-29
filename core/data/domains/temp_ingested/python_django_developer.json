@@ -1,0 +1,14 @@
+{
+  "domain": "HR",
+  "designation": "python_django_developer",
+  "label": "Python(Django) Developer",
+  "opening": "Welcome to the Python(Django) Developer interview. We will begin with a short screening round.",
+  "flow_type": "llm_screening",
+  "sections": [
+    {
+      "id": "core_skills",
+      "title": "Core Skills",
+      "questions": []
+    }
+  ]
+}

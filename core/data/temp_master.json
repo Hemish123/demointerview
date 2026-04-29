@@ -1,0 +1,48 @@
+{
+  "version": "temp",
+  "source": "auto_ingest",
+  "domains": [
+    {
+      "id": "hr",
+      "label": "HR",
+      "active": true,
+      "roles": [
+        {
+          "id": "python_django_developer",
+          "label": "Python(Django) Developer",
+          "dataset": "core/data/domains/temp_ingested\\python_django_developer.json",
+          "experience": null,
+          "active": true
+        },
+        {
+          "id": "junior_python_django_developer_05_2024_present",
+          "label": "Junior Python(Django) Developer 05/2024 - present",
+          "dataset": "core/data/domains/temp_ingested\\junior_python_django_developer_05_2024_present.json",
+          "experience": "junior",
+          "active": true
+        },
+        {
+          "id": "python_django_developer_intern_01_2024_04_2024",
+          "label": "Python(Django) Developer-Intern 01/2024 - 04/2024",
+          "dataset": "core/data/domains/temp_ingested\\python_django_developer_intern_01_2024_04_2024.json",
+          "experience": null,
+          "active": true
+        },
+        {
+          "id": "process_the_platform_supports_three_primary_user_roles_admin_manager_and_recruiter",
+          "label": "process. The platform supports three primary user roles: Admin, Manager, and Recruiter.",
+          "dataset": "core/data/domains/temp_ingested\\process_the_platform_supports_three_primary_user_roles_admin_manager_and_recruiter.json",
+          "experience": "manager",
+          "active": true
+        },
+        {
+          "id": "ensuring_smooth_hr_and_attendance_operations",
+          "label": "ensuring smooth HR and attendance operations.",
+          "dataset": "core/data/domains/temp_ingested\\ensuring_smooth_hr_and_attendance_operations.json",
+          "experience": null,
+          "active": true
+        }
+      ]
+    }
+  ]
+}

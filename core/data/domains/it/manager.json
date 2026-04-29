@@ -1,0 +1,281 @@
+{
+  "domain": "it",
+  "designation": "manager_it",
+  "label": "Manager – Information Technology",
+
+  "opening": "Welcome to the IT Manager interview. Please introduce yourself.",
+
+  "role_intro_gate": {
+    "question": "Before we begin, can you explain what you understand about the role of {role} at JMS TechNova?",
+    "end_if_no": "Thank you for your time. Our team will be contact you. "
+  },
+
+  "flow_type": "sequential",
+
+  "sections": [
+
+    {
+      "id": "strategic_leadership",
+      "title": "Strategic IT Leadership",
+
+      "questions": [
+
+        {
+          "id": "it_mgr_exp_1",
+          "text": "Have you been responsible for defining IT strategy or roadmaps for an organization?",
+          "type": "yes_no",
+          "branches": {
+            "yes": "it_mgr_exp_1a",
+            "no": "it_mgr_exp_1b"
+          },
+          "scoring_tags": ["strategy"]
+        },
+
+        {
+          "id": "it_mgr_exp_1a",
+          "text": "How many years have you worked at a strategic leadership level?",
+          "type": "number",
+          "store_as": "strategy_years",
+          "note": "Captured for reporting only.",
+          "scoring_tags": ["experience_metadata"]
+        },
+
+        {
+          "id": "it_mgr_exp_1b",
+          "text": "How would you begin developing an IT roadmap for a new organization?",
+          "type": "open",
+          "scoring_tags": ["planning"]
+        },
+
+        {
+          "id": "it_mgr_exp_2",
+          "text": "Describe the most impactful IT transformation program you have led.",
+          "type": "open",
+          "followups": [
+            "What business outcomes were targeted?",
+            "How was success measured?"
+          ],
+          "scoring_tags": ["transformation"]
+        }
+      ]
+    },
+
+    {
+      "id": "enterprise_architecture",
+      "title": "Enterprise Architecture & Cloud",
+
+      "questions": [
+
+        {
+          "id": "it_mgr_arch_1",
+          "text": "How do you design enterprise architectures that scale securely?",
+          "type": "open",
+          "followups": [
+            "What frameworks do you use?",
+            "How do you balance standardization vs agility?"
+          ],
+          "scoring_tags": ["architecture"]
+        },
+
+        {
+          "id": "it_mgr_arch_2",
+          "text": "Have you led cloud migration or modernization programs?",
+          "type": "yes_no",
+          "branches": {
+            "yes": "it_mgr_arch_2a",
+            "no": "it_mgr_arch_2b"
+          },
+          "scoring_tags": ["cloud"]
+        },
+
+        {
+          "id": "it_mgr_arch_2a",
+          "text": "Describe the migration approach and challenges.",
+          "type": "open",
+          "scoring_tags": ["cloud_migration"]
+        },
+
+        {
+          "id": "it_mgr_arch_2b",
+          "text": "How would you evaluate whether workloads should move to the cloud?",
+          "type": "open",
+          "scoring_tags": ["cloud_strategy"]
+        }
+      ]
+    },
+
+    {
+      "id": "security_governance",
+      "title": "Cybersecurity & Risk Governance",
+
+      "questions": [
+
+        {
+          "id": "it_mgr_sec_1",
+          "text": "How do you structure cybersecurity governance in a large organization?",
+          "type": "open",
+          "followups": [
+            "How do you report cyber risk to leadership?",
+            "Which frameworks guide you?"
+          ],
+          "scoring_tags": ["security_governance"]
+        },
+
+        {
+          "id": "it_mgr_sec_2",
+          "text": "Describe the most serious cyber incident you oversaw.",
+          "type": "open",
+          "scoring_tags": ["incident_leadership"]
+        },
+
+        {
+          "id": "it_mgr_sec_3",
+          "text": "How do you prepare the organization for audits and regulatory reviews?",
+          "type": "open",
+          "scoring_tags": ["audit_readiness"]
+        }
+      ]
+    },
+
+    {
+      "id": "operations_resilience",
+      "title": "Operations, Resilience & DR",
+
+      "questions": [
+
+        {
+          "id": "it_mgr_ops_1",
+          "text": "How do you design IT operations for high availability and resilience?",
+          "type": "open",
+          "followups": [
+            "How do you test disaster recovery?",
+            "What RTO/RPO targets do you use?"
+          ],
+          "scoring_tags": ["resilience"]
+        },
+
+        {
+          "id": "it_mgr_ops_2",
+          "text": "How do you balance cost efficiency with reliability?",
+          "type": "open",
+          "scoring_tags": ["cost_optimization"]
+        }
+      ]
+    },
+
+    {
+      "id": "financial_management",
+      "title": "Budgeting & Financial Governance",
+
+      "questions": [
+
+        {
+          "id": "it_mgr_fin_1",
+          "text": "Have you owned IT budgets or capital planning?",
+          "type": "yes_no",
+          "branches": {
+            "yes": "it_mgr_fin_1a",
+            "no": "it_mgr_fin_1b"
+          },
+          "scoring_tags": ["budgeting"]
+        },
+
+        {
+          "id": "it_mgr_fin_1a",
+          "text": "How do you prioritize spend across security, growth, and maintenance?",
+          "type": "open",
+          "scoring_tags": ["capital_allocation"]
+        },
+
+        {
+          "id": "it_mgr_fin_1b",
+          "text": "How would you construct a business case for new IT investments?",
+          "type": "open",
+          "scoring_tags": ["business_case"]
+        }
+      ]
+    },
+
+    {
+      "id": "vendor_ecosystem",
+      "title": "Vendor & Partner Ecosystem",
+
+      "questions": [
+
+        {
+          "id": "it_mgr_ven_1",
+          "text": "How do you manage strategic vendors and cloud partners?",
+          "type": "open",
+          "followups": [
+            "How do you enforce SLAs?",
+            "How do you control vendor risk?"
+          ],
+          "scoring_tags": ["vendor_management"]
+        }
+      ]
+    },
+
+    {
+      "id": "stakeholder_alignment",
+      "title": "Executive Stakeholder Alignment",
+
+      "questions": [
+
+        {
+          "id": "it_mgr_stk_1",
+          "text": "How do you communicate IT priorities to business leaders?",
+          "type": "open",
+          "scoring_tags": ["stakeholder_management"]
+        },
+
+        {
+          "id": "it_mgr_stk_2",
+          "text": "Describe a time when business leadership pushed back on an IT recommendation.",
+          "type": "open",
+          "scoring_tags": ["influence"]
+        }
+      ]
+    },
+
+    {
+      "id": "talent_culture",
+      "title": "Talent & Culture",
+
+      "questions": [
+
+        {
+          "id": "it_mgr_team_1",
+          "text": "How do you build leadership bench strength in IT?",
+          "type": "open",
+          "followups": [
+            "How do you identify high potentials?",
+            "How do you retain critical talent?"
+          ],
+          "scoring_tags": ["talent_strategy"]
+        }
+      ]
+    },
+
+    {
+      "id": "future_vision",
+      "title": "Future Technology Vision",
+
+      "questions": [
+
+        {
+          "id": "it_mgr_fut_1",
+          "text": "Which emerging technologies will most impact your industry?",
+          "type": "open",
+          "scoring_tags": ["future_tech"]
+        },
+
+        {
+          "id": "it_mgr_fut_2",
+          "text": "How do you keep your organization technologically competitive?",
+          "type": "open",
+          "scoring_tags": ["innovation"]
+        }
+      ]
+    }
+  ]
+}

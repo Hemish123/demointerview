@@ -1,0 +1,215 @@
+{
+  "domain": "investment_banking",
+  "designation": "assistant_manager_ib",
+  "label": "Assistant Manager – Investment Banking",
+
+  "opening": "Welcome to the Assistant Manager interview. Please introduce yourself.",
+
+  "role_intro_gate": {
+    "question": "Before we begin, can you explain what you understand about the role of {role} at JMS TechNova?",
+    "end_if_no": "Thank you for your time. Our team will be contact you. "
+  },
+
+  "flow_type": "sequential",
+
+  "sections": [
+
+    {
+      "id": "deal_leadership",
+      "title": "Deal Leadership & Transaction Oversight",
+
+      "questions": [
+
+        {
+          "id": "ib_am_exp_1",
+          "text": "Have you led teams on live transactions from start to close?",
+          "type": "yes_no",
+          "branches": {
+            "yes": "ib_am_exp_1a",
+            "no": "ib_am_exp_1b"
+          },
+          "scoring_tags": ["deal_leadership"]
+        },
+
+        {
+          "id": "ib_am_exp_1a",
+          "text": "How many years have you been leading deal teams?",
+          "type": "number",
+          "store_as": "deal_lead_years",
+          "note": "Captured only for reporting.",
+          "scoring_tags": ["experience_metadata"]
+        },
+
+        {
+          "id": "ib_am_exp_1b",
+          "text": "How would you prepare to lead your first full transaction?",
+          "type": "open",
+          "scoring_tags": ["learning_attitude"]
+        },
+
+        {
+          "id": "ib_am_exp_2",
+          "text": "Describe the most complex transaction you have managed.",
+          "type": "open",
+          "followups": [
+            "What challenges arose?",
+            "How did you resolve them?"
+          ],
+          "scoring_tags": ["transaction_complexity"]
+        }
+      ]
+    },
+
+    {
+      "id": "valuation_control",
+      "title": "Valuation Oversight & Modeling Review",
+
+      "questions": [
+
+        {
+          "id": "ib_am_val_1",
+          "text": "How do you review and challenge valuation assumptions prepared by your team?",
+          "type": "open",
+          "followups": [
+            "What sensitivity analyses do you require?",
+            "How do you validate forecasts?"
+          ],
+          "scoring_tags": ["valuation_oversight"]
+        },
+
+        {
+          "id": "ib_am_val_2",
+          "text": "What controls do you apply before a model goes to a client?",
+          "type": "open",
+          "scoring_tags": ["quality_control"]
+        }
+      ]
+    },
+
+    {
+      "id": "client_management",
+      "title": "Client Interaction & Stakeholder Management",
+
+      "questions": [
+
+        {
+          "id": "ib_am_cli_1",
+          "text": "Have you directly handled client communication during deals?",
+          "type": "yes_no",
+          "branches": {
+            "yes": "ib_am_cli_1a",
+            "no": "ib_am_cli_1b"
+          },
+          "scoring_tags": ["client_management"]
+        },
+
+        {
+          "id": "ib_am_cli_1a",
+          "text": "What types of client conversations do you typically lead?",
+          "type": "open",
+          "scoring_tags": ["relationship_management"]
+        },
+
+        {
+          "id": "ib_am_cli_1b",
+          "text": "How would you prepare for senior-level client discussions?",
+          "type": "open",
+          "scoring_tags": ["client_readiness"]
+        }
+      ]
+    },
+
+    {
+      "id": "diligence_execution",
+      "title": "Due Diligence & Execution Control",
+
+      "questions": [
+
+        {
+          "id": "ib_am_dd_1",
+          "text": "How do you structure and supervise financial due diligence?",
+          "type": "open",
+          "followups": [
+            "How do you escalate deal risks?",
+            "How do you handle conflicting findings?"
+          ],
+          "scoring_tags": ["due_diligence"]
+        },
+
+        {
+          "id": "ib_am_dd_2",
+          "text": "How do you manage timelines and competing priorities on multiple deals?",
+          "type": "open",
+          "scoring_tags": ["project_management"]
+        }
+      ]
+    },
+
+    {
+      "id": "pitch_leadership",
+      "title": "Pitchbook Leadership & Strategy",
+
+      "questions": [
+
+        {
+          "id": "ib_am_pitch_1",
+          "text": "How do you craft the strategic narrative for a pitchbook?",
+          "type": "open",
+          "followups": [
+            "How do you position valuation?",
+            "How do you highlight growth opportunities?"
+          ],
+          "scoring_tags": ["strategic_storytelling"]
+        },
+
+        {
+          "id": "ib_am_pitch_2",
+          "text": "How do you review and finalize client presentations?",
+          "type": "open",
+          "scoring_tags": ["presentation_quality"]
+        }
+      ]
+    },
+
+    {
+      "id": "team_development",
+      "title": "Team Leadership & Development",
+
+      "questions": [
+
+        {
+          "id": "ib_am_team_1",
+          "text": "How do you coach analysts and senior analysts?",
+          "type": "open",
+          "followups": [
+            "How do you delegate tasks?",
+            "How do you give performance feedback?"
+          ],
+          "scoring_tags": ["team_leadership"]
+        }
+      ]
+    },
+
+    {
+      "id": "market_strategy",
+      "title": "Market Awareness & Strategic Thinking",
+
+      "questions": [
+
+        {
+          "id": "ib_am_mkt_1",
+          "text": "Which sectors or geographies do you believe are most attractive for deals right now?",
+          "type": "open",
+          "scoring_tags": ["market_view"]
+        },
+
+        {
+          "id": "ib_am_mkt_2",
+          "text": "How do macroeconomic shifts affect deal structuring?",
+          "type": "open",
+          "scoring_tags": ["macro"]
+        }
+      ]
+    }
+  ]
+}
