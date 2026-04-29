@@ -310,7 +310,7 @@ from rest_framework.authentication import SessionAuthentication
 
 
 from core.services.auto_ingest import ingest_document
-from core.services.terminal_interviewer import get_next_question
+from core.services.role_orchestrator import get_next_question
 from core.services.tts import synthesize_to_base64
 from core.services.session_store import (
     create_session,
