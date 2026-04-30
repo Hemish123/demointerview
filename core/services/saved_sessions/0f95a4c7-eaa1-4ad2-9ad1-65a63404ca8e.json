@@ -1,0 +1,19 @@
+{
+    "session_id": "0f95a4c7-eaa1-4ad2-9ad1-65a63404ca8e",
+    "company": "JMS TechNova",
+    "role_label": "Manager \u2013 Marketing",
+    "designation": "manager_marketing",
+    "phase": "await_self_intro",
+    "finished": false,
+    "candidate_name": "Hitul",
+    "last_answer": null,
+    "answers": {},
+    "topics_asked": [],
+    "current_topic": null,
+    "awaiting_experience": false,
+    "llm_hr_count": 0,
+    "hr_limit": null,
+    "silence_count": 0,
+    "total_questions_asked": 0,
+    "total_limit": 16
+}

@@ -74,13 +74,14 @@ def save_session(session: InterviewSession):
 # FACTORY
 # =====================================================
 
-def create_session(company: str, role_label: str, designation: str):
+def create_session(company: str, role_label: str, designation: str, candidate_name: Optional[str] = None):
 
     session = InterviewSession(
         session_id=str(uuid.uuid4()),
         company=company,
         role_label=role_label,
         designation=designation,
+        candidate_name=candidate_name,
     )
 
     # ✅ STORE SESSION

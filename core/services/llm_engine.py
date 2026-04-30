@@ -264,3 +264,112 @@ shifts, travel, hobbies, joining date.
                 raise ValueError("Unsafe LLM output detected")
 
         return text[:300]
+
+
+    # =====================================================
+    # INTERVIEW EVALUATION (STRICT SCORING)
+    # =====================================================
+
+    def evaluate_interview(self, role: str, turns: list[dict]) -> dict:
+        """
+        Evaluates the full interview transcript.
+        Returns per-question scores, overall score, and confidence %.
+
+        turns: list of {"question": str, "answer": str}
+        """
+        import json as _json
+
+        # Build the transcript block for the prompt
+        transcript_lines = []
+        for i, t in enumerate(turns, 1):
+            transcript_lines.append(
+                f"Q{i}: {t['question']}\nA{i}: {t['answer']}"
+            )
+        transcript_text = "\n\n".join(transcript_lines)
+
+        system = (
+            "You are a STRICT technical interview evaluator. "
+            "You must evaluate each answer against globally accepted standards for the given role. "
+            "Do NOT be liberal or lenient. Score harshly but fairly. "
+            "An empty or irrelevant answer must receive 0. "
+            "A vague answer with no specifics should score no more than 3/10. "
+            "Only genuinely strong, detailed, role-relevant answers should score 7+. "
+            "Return ONLY valid JSON, no markdown, no explanation."
+        )
+
+        user = f"""
+Role: {role}
+
+Interview Transcript:
+{transcript_text}
+
+Evaluate EACH question-answer pair. Return JSON in this EXACT format:
+{{
+  "per_question": [
+    {{
+      "question_number": 1,
+      "score": <0-10>,
+      "remark": "<1 line reason for the score>"
+    }}
+  ],
+  "overall_score": <0-100>,
+  "confidence_percent": <0-100>,
+  "confidence_remark": "<1 line about candidate's confidence level>",
+  "knowledge_percent": <0-100>,
+  "domain_percent": <0-100>,
+  "communication_percent": <0-100>,
+  "summary": "<2-3 line overall evaluation>"
+}}
+
+Scoring rules:
+- score is 0-10 per question (0=no answer/irrelevant, 10=perfect expert answer)
+- overall_score is 0-100 (weighted average, penalize unanswered questions heavily)
+- confidence_percent is 0-100 (based on clarity, conviction, detail in answers)
+- knowledge_percent is 0-100 (depth of technical/functional knowledge demonstrated)
+- domain_percent is 0-100 (relevance and expertise in the specific role domain)
+- communication_percent is 0-100 (articulation, structure, and clarity of responses)
+- Skip greeting/intro questions (Q1 type) - give them score 5 (neutral)
+- Be STRICT. Average candidates should score 40-55 overall, not 70+.
+"""
+
+        try:
+            resp = client.chat.completions.create(
+                model=DEPLOYMENT,
+                messages=[
+                    {"role": "system", "content": system},
+                    {"role": "user", "content": user},
+                ],
+                temperature=0.1,
+                max_tokens=2000,
+            )
+
+            raw = resp.choices[0].message.content
+            text = self._extract_text(raw)
+
+            # Strip markdown fences if present
+            text = text.strip()
+            if text.startswith("```"):
+                text = text.split("\n", 1)[1] if "\n" in text else text[3:]
+            if text.endswith("```"):
+                text = text[:-3]
+            text = text.strip()
+            if text.startswith("json"):
+                text = text[4:].strip()
+
+            result = _json.loads(text)
+            return result
+
+        except Exception as e:
+            logger.exception("Interview evaluation failed: %s", e)
+            return {
+                "per_question": [],
+                "overall_score": 0,
+                "confidence_percent": 0,
+                "knowledge_percent": 0,
+                "domain_percent": 0,
+                "communication_percent": 0,
+                "confidence_remark": "Evaluation failed",
+                "summary": "Could not evaluate the interview. Please try again.",
+            }
+
+

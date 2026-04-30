@@ -1,0 +1,23 @@
+{
+    "session_id": "8e20174f-5322-4741-993e-f7e0d191005d",
+    "company": "JMS TechNova",
+    "role_label": "Advanced Analyst \u2013 Valuations",
+    "designation": "advanced_analyst_valuations",
+    "phase": "role_check",
+    "finished": false,
+    "candidate_name": "Taksh S patel",
+    "last_answer": "",
+    "answers": {},
+    "topics_asked": [],
+    "current_topic": null,
+    "awaiting_experience": false,
+    "llm_hr_count": 0,
+    "hr_limit": null,
+    "total_questions_asked": 1,
+    "total_limit": 19,
+    "last_question": {
+        "id": "role_confirm",
+        "text": "Thank you Taksh S patel. Do you have knowledge about the Advanced Analyst \u2013 Valuations role?",
+        "source": "system"
+    }
+}

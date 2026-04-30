@@ -1,0 +1,40 @@
+{
+    "session_id": "9940bd93-3a45-45cf-b6c7-8d6be0dc4d2f",
+    "company": "JMS TechNova",
+    "role_label": "Associate HR",
+    "designation": "associate_hr",
+    "phase": "finished",
+    "finished": true,
+    "candidate_name": "Tulsi",
+    "last_answer": "",
+    "answers": {
+        "role_confirm": ".",
+        "education": "I am graduate.",
+        "topic-Conflict Resolution Skills": ".",
+        "topic-financial analysis": "Please next question.",
+        "topic-due diligence": "Next question, please.",
+        "hr-final-7": "Ahmedabad.",
+        "hr-final-4": "5432.",
+        "hr-final-2": "Yes, I am aware of this."
+    },
+    "topics_asked": [
+        "Can you describe your experience related to this area?",
+        "Conflict Resolution Skills",
+        "compliance",
+        "financial analysis",
+        "due diligence"
+    ],
+    "current_topic": null,
+    "awaiting_experience": false,
+    "llm_hr_count": 0,
+    "hr_limit": 2,
+    "silence_count": 0,
+    "total_questions_asked": 14,
+    "total_limit": 17,
+    "last_question": {
+        "id": "hr-final-1",
+        "text": "Are you Open to work from office ?",
+        "source": "system"
+    },
+    "final_hr_queue": []
+}

@@ -1,0 +1,52 @@
+{
+    "session_id": "405116bf-2de7-4396-9559-a457ea6af098",
+    "company": "JMS TechNova",
+    "role_label": "Senior Manager \u2013 TAS / FDD",
+    "designation": "senior_manager_tas",
+    "phase": "final_hr",
+    "finished": false,
+    "candidate_name": "Taksh",
+    "last_answer": "",
+    "answers": {
+        "role_confirm": "No, I don't have a knowledge about this.",
+        "education": "Arey tum kare jaan goluji nukdi JA?",
+        "topic-Leadership in Financial Due Diligence": "I don't know about this.",
+        "topic-Strategic Risk Assessment in Transactions": ".",
+        "topic-Post-Merger Integration Strategies": "No, I don't know about this.",
+        "topic-Valuation Techniques in Financial Transactions": "No, I am not familiar with this.",
+        "topic-Regulatory Compliance in Financial Transactions": "No, I am not familiar with this.",
+        "hr-final-7": "."
+    },
+    "topics_asked": [
+        "Leadership in Financial Due Diligence",
+        "Strategic Risk Assessment in Transactions",
+        "Post-Merger Integration Strategies",
+        "Valuation Techniques in Financial Transactions",
+        "Regulatory Compliance in Financial Transactions"
+    ],
+    "current_topic": null,
+    "awaiting_experience": false,
+    "llm_hr_count": 0,
+    "hr_limit": 4,
+    "silence_count": 1,
+    "total_questions_asked": 9,
+    "total_limit": 18,
+    "last_question": {
+        "id": "hr-final-6",
+        "text": "Where is your hometown located?",
+        "source": "system"
+    },
+    "awaiting_repeat_confirmation": true,
+    "last_real_question": {
+        "id": "hr-final-6",
+        "text": "Where is your hometown located?",
+        "source": "system"
+    },
+    "final_hr_queue": [
+        "What is your current notice period, and when would you be available to start if offered the position?",
+        "What was your last month in-hand salary?",
+        "What are your hobbies or interests outside of work?",
+        "Are you aware of any AI tools that help you in your daily work?",
+        "Are you Open to work from office ?"
+    ]
+}

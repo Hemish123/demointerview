@@ -1,0 +1,18 @@
+{
+    "session_id": "ebe0d359-0787-45ac-b71b-28a65935d238",
+    "company": "JMS TechNova",
+    "role_label": "Associate (IT)",
+    "designation": "associate_it",
+    "phase": "await_self_intro",
+    "finished": false,
+    "candidate_name": null,
+    "last_answer": null,
+    "answers": {},
+    "topics_asked": [],
+    "current_topic": null,
+    "awaiting_experience": false,
+    "llm_hr_count": 0,
+    "hr_limit": null,
+    "total_questions_asked": 0,
+    "total_limit": 17
+}

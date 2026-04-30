@@ -1,0 +1,25 @@
+{
+    "session_id": "6b24ec40-2750-4ce0-8eac-588a4ec31724",
+    "company": "JMS TechNova",
+    "role_label": "Associate HR",
+    "designation": "associate_hr",
+    "phase": "await_education_answer",
+    "finished": false,
+    "candidate_name": "One",
+    "last_answer": "No, I don't know about this.",
+    "answers": {
+        "role_confirm": "No, I don't know about this."
+    },
+    "topics_asked": [],
+    "current_topic": null,
+    "awaiting_experience": false,
+    "llm_hr_count": 0,
+    "hr_limit": null,
+    "total_questions_asked": 2,
+    "total_limit": 18,
+    "last_question": {
+        "id": "education",
+        "text": "One, can you tell me about your education?",
+        "source": "system"
+    }
+}

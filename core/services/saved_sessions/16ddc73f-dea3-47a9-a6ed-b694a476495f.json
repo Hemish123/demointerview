@@ -1,0 +1,47 @@
+{
+    "session_id": "16ddc73f-dea3-47a9-a6ed-b694a476495f",
+    "company": "JMS TechNova",
+    "role_label": "Associate HR",
+    "designation": "associate_hr",
+    "phase": "finished",
+    "finished": true,
+    "candidate_name": "ayushi",
+    "last_answer": "",
+    "answers": {
+        "role_confirm": ".",
+        "education": "I am undergraduate.I am undergraduate.",
+        "topic-Can you describe your experience related to this area?": "No, I am not familiar with this.",
+        "topic-Talent Acquisition Strategies": ".",
+        "hr-final-7": ".",
+        "hr-final-6": "Next question.",
+        "hr-final-5": "Next question.",
+        "hr-final-4": "Next question.",
+        "hr-final-3": "."
+    },
+    "topics_asked": [
+        "Can you describe your experience related to this area?",
+        "Conflict Resolution Skills",
+        "financial analysis",
+        "employee relations",
+        "Talent Acquisition Strategies"
+    ],
+    "current_topic": null,
+    "awaiting_experience": false,
+    "llm_hr_count": 0,
+    "hr_limit": 3,
+    "silence_count": 0,
+    "total_questions_asked": 14,
+    "total_limit": 19,
+    "last_question": {
+        "id": "hr-final-1",
+        "text": "Are you Open to work from office ?",
+        "source": "system"
+    },
+    "awaiting_repeat_confirmation": false,
+    "last_real_question": {
+        "id": "hr-final-1",
+        "text": "Are you Open to work from office ?",
+        "source": "system"
+    },
+    "final_hr_queue": []
+}

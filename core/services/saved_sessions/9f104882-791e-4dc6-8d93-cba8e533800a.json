@@ -1,0 +1,24 @@
+{
+    "session_id": "9f104882-791e-4dc6-8d93-cba8e533800a",
+    "company": "JMS TechNova",
+    "role_label": "Assistant Manager \u2013 US Accounts",
+    "designation": "assistant_manager_us_accounts",
+    "phase": "await_education_answer",
+    "finished": false,
+    "candidate_name": "Tulsi",
+    "last_answer": "",
+    "answers": {},
+    "topics_asked": [],
+    "current_topic": null,
+    "awaiting_experience": false,
+    "llm_hr_count": 0,
+    "hr_limit": null,
+    "silence_count": 0,
+    "total_questions_asked": 2,
+    "total_limit": 16,
+    "last_question": {
+        "id": "education",
+        "text": "Tulsi, can you tell me about your education?",
+        "source": "system"
+    }
+}

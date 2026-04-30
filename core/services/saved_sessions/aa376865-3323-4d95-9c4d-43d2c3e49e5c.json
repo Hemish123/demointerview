@@ -1,0 +1,18 @@
+{
+    "session_id": "aa376865-3323-4d95-9c4d-43d2c3e49e5c",
+    "company": "JMS TechNova",
+    "role_label": "Associate HR",
+    "designation": "associate_hr",
+    "phase": "await_self_intro",
+    "finished": false,
+    "candidate_name": null,
+    "last_answer": null,
+    "answers": {},
+    "topics_asked": [],
+    "current_topic": null,
+    "awaiting_experience": false,
+    "llm_hr_count": 0,
+    "hr_limit": null,
+    "total_questions_asked": 0,
+    "total_limit": 17
+}

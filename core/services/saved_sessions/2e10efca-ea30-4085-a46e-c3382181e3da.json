@@ -1,0 +1,34 @@
+{
+    "session_id": "2e10efca-ea30-4085-a46e-c3382181e3da",
+    "company": "JMS TechNova",
+    "role_label": "Associate HR",
+    "designation": "associate_hr",
+    "phase": "screening_topics",
+    "finished": false,
+    "candidate_name": "Taksh P",
+    "last_answer": "",
+    "answers": {
+        "role_confirm": ".",
+        "education": "No, not repeat the question.",
+        "topic-Can you describe your experience related to this area?": ".",
+        "topic-Conflict Resolution Skills": "Hai.",
+        "topic-employee relations": "No, don't repeat the question. Yes, please repeat."
+    },
+    "topics_asked": [
+        "Can you describe your experience related to this area?",
+        "Conflict Resolution Skills",
+        "employee relations"
+    ],
+    "current_topic": "employee relations",
+    "awaiting_experience": true,
+    "llm_hr_count": 0,
+    "hr_limit": null,
+    "total_questions_asked": 5,
+    "total_limit": 19,
+    "last_question": {
+        "id": "topic-employee relations",
+        "text": "Are you familiar with employee relations in the workplace?",
+        "source": "llm"
+    },
+    "awaiting_repeat_confirmation": true
+}

@@ -1,0 +1,24 @@
+{
+    "session_id": "8e340c93-2595-42c4-a6bc-7c555b1ed3b4",
+    "company": "JMS TechNova",
+    "role_label": "Senior Associate (Internal Accounting)",
+    "designation": "senior_associate_accounts",
+    "phase": "role_check",
+    "finished": false,
+    "candidate_name": "Taksh",
+    "last_answer": "",
+    "answers": {},
+    "topics_asked": [],
+    "current_topic": null,
+    "awaiting_experience": false,
+    "llm_hr_count": 0,
+    "hr_limit": null,
+    "total_questions_asked": 1,
+    "total_limit": 17,
+    "last_question": {
+        "id": "role_confirm",
+        "text": "Thank you Taksh. Do you have knowledge about the Senior Associate (Internal Accounting) role?",
+        "source": "system"
+    },
+    "awaiting_repeat_confirmation": true
+}

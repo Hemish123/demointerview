@@ -1,0 +1,41 @@
+{
+    "session_id": "1f7f6383-464b-449a-9b00-ce40383e1b01",
+    "company": "JMS TechNova",
+    "role_label": "Associate HR",
+    "designation": "associate_hr",
+    "phase": "finished",
+    "finished": true,
+    "candidate_name": "Taksh",
+    "last_answer": "Yes, I am open, but I prefer work from home.",
+    "answers": {
+        "role_confirm": "No, I don't have knowledge about this.",
+        "education": "Next question.",
+        "topic-Employee Relations": "No, I don't know about this.",
+        "topic-Can you describe your experience related to this area?": "No, I don't know about this.",
+        "topic-employee relations": "No, I don't know about this.",
+        "hr-final-6": "In Gandhinagar.",
+        "hr-final-3": "I don't know about this.",
+        "hr-final-2": "Yes, I use many air tools.",
+        "hr-final-1": "Yes, I am open, but I prefer work from home."
+    },
+    "topics_asked": [
+        "Employee Relations",
+        "Talent Acquisition",
+        "Can you describe your experience related to this area?",
+        "payroll basics",
+        "employee relations"
+    ],
+    "current_topic": null,
+    "awaiting_experience": false,
+    "llm_hr_count": 0,
+    "hr_limit": 2,
+    "silence_count": 0,
+    "total_questions_asked": 14,
+    "total_limit": 20,
+    "last_question": {
+        "id": "hr-final-1",
+        "text": "Are you Open to work from office ?",
+        "source": "system"
+    },
+    "final_hr_queue": []
+}

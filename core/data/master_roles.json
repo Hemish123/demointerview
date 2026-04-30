@@ -45,38 +45,6 @@
 
       "roles": [
         {
-          "id": "associate_it",
-          "label": "Associate (IT)",
-          "experience": "1–2 years",
-          "education": "Bachelor in IT / CS",
-          "dataset": "domains/it/associate.json",
-          "active": true
-        },
-        {
-          "id": "senior_associate_it",
-          "label": "Senior Associate (IT)",
-          "experience": "2–4 years",
-          "education": "Bachelor in IT / CS",
-          "dataset": "domains/it/senior_associate.json",
-          "active": true
-        },
-        {
-          "id": "assistant_manager_it",
-          "label": "Assistant Manager (IT)",
-          "experience": "4+ years",
-          "education": "Diploma / Certifications",
-          "dataset": "domains/it/assistant_manager.json",
-          "active": true
-        },
-        {
-          "id": "associate_manager_it",
-          "label": "Associate Manager (IT)",
-          "experience": "5+ years",
-          "education": "Bachelor + Certifications",
-          "dataset": "domains/it/associate_manager.json",
-          "active": true
-        },
-        {
           "id": "manager_it",
           "label": "Manager (IT)",
           "experience": "7+ years",
@@ -94,14 +62,6 @@
       "active": true,
 
       "roles": [
-        {
-          "id": "associate_accounts",
-          "label": "Associate (Internal Accounting)",
-          "experience": "0–2 years",
-          "education": "B.Com / M.Com / CA Inter",
-          "dataset": "domains/internal_accounts/associate.json",
-          "active": true
-        },
         {
           "id": "senior_associate_accounts",
           "label": "Senior Associate (Internal Accounting)",
@@ -121,43 +81,11 @@
 
       "roles": [
         {
-          "id": "analyst_ib",
-          "label": "Analyst (IB)",
-          "experience": "0–6 months",
-          "education": "Finance / Accounting",
-          "dataset": "domains/investment_banking/analyst.json",
-          "active": true
-        },
-        {
-          "id": "advanced_analyst_ib",
-          "label": "Advanced Analyst (IB)",
-          "experience": "1+ year",
-          "education": "MBA / CFA",
-          "dataset": "domains/investment_banking/advanced_analyst.json",
-          "active": true
-        },
-        {
           "id": "senior_analyst_ib",
           "label": "Senior Analyst (IB)",
           "experience": "2–4 years",
           "education": "MBA / CFA",
           "dataset": "domains/investment_banking/senior_analyst.json",
-          "active": true
-        },
-        {
-          "id": "assistant_manager_ib",
-          "label": "Assistant Manager (IB)",
-          "experience": "4–6 years",
-          "education": "MBA / CFA / CA",
-          "dataset": "domains/investment_banking/assistant_manager.json",
-          "active": true
-        },
-        {
-          "id": "manager_ib",
-          "label": "Manager (IB)",
-          "experience": "7+ years",
-          "education": "MBA / CFA / CA",
-          "dataset": "domains/investment_banking/manager.json",
           "active": true
         }
       ]
@@ -170,30 +98,6 @@
       "active": true,
 
       "roles": [
-        {
-          "id": "associate_marketing",
-          "label": "Associate – Marketing",
-          "experience": "0–2 years",
-          "education": "MBA Marketing / BBA",
-          "dataset": "domains/marketing/associate.json",
-          "active": true
-        },
-        {
-          "id": "senior_associate_marketing",
-          "label": "Senior Associate – Marketing",
-          "experience": "3–5 years",
-          "education": "MBA Marketing",
-          "dataset": "domains/marketing/senior_associate.json",
-          "active": true
-        },
-        {
-          "id": "assistant_manager_marketing",
-          "label": "Assistant Manager – Marketing",
-          "experience": "5–7 years",
-          "education": "MBA",
-          "dataset": "domains/marketing/assistant_manager.json",
-          "active": true
-        },
         {
           "id": "manager_marketing",
           "label": "Manager – Marketing",
@@ -213,38 +117,6 @@
 
       "roles": [
         {
-          "id": "associate_tas",
-          "label": "Associate – TAS / FDD",
-          "experience": "0–2 years",
-          "education": "CA / MBA Finance",
-          "dataset": "domains/tas_fdd/associate.json",
-          "active": true
-        },
-        {
-          "id": "senior_associate_tas",
-          "label": "Senior Associate – TAS / FDD",
-          "experience": "3–5 years",
-          "education": "CA / MBA",
-          "dataset": "domains/tas_fdd/senior_associate.json",
-          "active": true
-        },
-        {
-          "id": "assistant_manager_tas",
-          "label": "Assistant Manager – TAS / FDD",
-          "experience": "5–7 years",
-          "education": "CA / MBA",
-          "dataset": "domains/tas_fdd/assistant_manager.json",
-          "active": true
-        },
-        {
-          "id": "manager_tas",
-          "label": "Manager – TAS / FDD",
-          "experience": "8–10 years",
-          "education": "CA / MBA",
-          "dataset": "domains/tas_fdd/manager.json",
-          "active": true
-        },
-        {
           "id": "senior_manager_tas",
           "label": "Senior Manager – TAS / FDD",
           "experience": "10+ years",
@@ -262,30 +134,6 @@
       "active": true,
 
       "roles": [
-        {
-          "id": "associate_us_accounts",
-          "label": "Associate – US Accounts",
-          "experience": "0–2 years",
-          "education": "B.Com / M.Com / CA Inter",
-          "dataset": "domains/us_accounts/associate.json",
-          "active": true
-        },
-        {
-          "id": "advanced_associate_us_accounts",
-          "label": "Advanced Associate – US Accounts",
-          "experience": "2–4 years",
-          "education": "B.Com / CA Inter",
-          "dataset": "domains/us_accounts/advanced_associate.json",
-          "active": true
-        },
-        {
-          "id": "senior_associate_us_accounts",
-          "label": "Senior Associate – US Accounts",
-          "experience": "4–6 years",
-          "education": "CA Inter / CPA",
-          "dataset": "domains/us_accounts/senior_associate.json",
-          "active": true
-        },
         {
           "id": "assistant_manager_us_accounts",
           "label": "Assistant Manager – US Accounts",
@@ -305,51 +153,11 @@
 
       "roles": [
         {
-          "id": "associate_us_tax",
-          "label": "Associate – US Tax",
-          "experience": "0–2 years",
-          "education": "B.Com / EA / CPA",
-          "dataset": "domains/us_taxation/associate.json",
-          "active": true
-        },
-        {
-          "id": "senior_associate_us_tax",
-          "label": "Senior Associate – US Tax",
-          "experience": "3–5 years",
-          "education": "EA / CPA / CA",
-          "dataset": "domains/us_taxation/senior_associate.json",
-          "active": true
-        },
-        {
           "id": "team_lead_us_tax",
           "label": "Team Lead – US Tax",
           "experience": "5–7 years",
           "education": "CPA / EA",
           "dataset": "domains/us_taxation/team_lead.json",
-          "active": true
-        },
-        {
-          "id": "assistant_manager_us_tax",
-          "label": "Assistant Manager – US Tax",
-          "experience": "7–9 years",
-          "education": "CPA / EA",
-          "dataset": "domains/us_taxation/assistant_manager.json",
-          "active": true
-        },
-        {
-          "id": "associate_manager_us_tax",
-          "label": "Associate Manager – US Tax",
-          "experience": "9–11 years",
-          "education": "CPA / EA",
-          "dataset": "domains/us_taxation/associate_manager.json",
-          "active": true
-        },
-        {
-          "id": "manager_us_tax",
-          "label": "Manager – US Tax",
-          "experience": "11+ years",
-          "education": "CPA / EA",
-          "dataset": "domains/us_taxation/manager.json",
           "active": true
         }
       ]
@@ -363,59 +171,11 @@
 
       "roles": [
         {
-          "id": "analyst_valuations",
-          "label": "Analyst – Valuations",
-          "experience": "0–1 years",
-          "education": "Finance / Accounting / MBA",
-          "dataset": "domains/valuations/analyst.json",
-          "active": true
-        },
-        {
           "id": "advanced_analyst_valuations",
           "label": "Advanced Analyst – Valuations",
           "experience": "1–3 years",
           "education": "Finance / Accounting / MBA",
           "dataset": "domains/valuations/advanced_analyst.json",
-          "active": true
-        },
-        {
-          "id": "senior_analyst_i_valuations",
-          "label": "Senior Analyst-I – Valuations",
-          "experience": "3–5 years",
-          "education": "MBA / CFA / CA",
-          "dataset": "domains/valuations/senior_analyst_i.json",
-          "active": true
-        },
-        {
-          "id": "senior_analyst_ii_valuations",
-          "label": "Senior Analyst-II – Valuations",
-          "experience": "5–7 years",
-          "education": "MBA / CFA / CA",
-          "dataset": "domains/valuations/senior_analyst_ii.json",
-          "active": true
-        },
-        {
-          "id": "assistant_manager_valuations",
-          "label": "Assistant Manager – Valuations",
-          "experience": "7–9 years",
-          "education": "MBA / CFA / CA",
-          "dataset": "domains/valuations/assistant_manager.json",
-          "active": true
-        },
-        {
-          "id": "associate_manager_valuations",
-          "label": "Associate Manager – Valuations",
-          "experience": "9–11 years",
-          "education": "MBA / CFA / CA",
-          "dataset": "domains/valuations/associate_manager.json",
-          "active": true
-        },
-        {
-          "id": "manager_valuations",
-          "label": "Manager – Valuations",
-          "experience": "11+ years",
-          "education": "MBA / CFA / CA",
-          "dataset": "domains/valuations/manager.json",
           "active": true
         }
       ]

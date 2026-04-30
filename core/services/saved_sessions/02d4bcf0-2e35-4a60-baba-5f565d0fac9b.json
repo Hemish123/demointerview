@@ -1,0 +1,24 @@
+{
+    "session_id": "02d4bcf0-2e35-4a60-baba-5f565d0fac9b",
+    "company": "JMS TechNova",
+    "role_label": "Associate HR",
+    "designation": "associate_hr",
+    "phase": "role_check",
+    "finished": false,
+    "candidate_name": "Tulsi",
+    "last_answer": "",
+    "answers": {},
+    "topics_asked": [],
+    "current_topic": null,
+    "awaiting_experience": false,
+    "llm_hr_count": 0,
+    "hr_limit": null,
+    "silence_count": 0,
+    "total_questions_asked": 1,
+    "total_limit": 16,
+    "last_question": {
+        "id": "role_confirm",
+        "text": "Thank you Tulsi. Do you have knowledge about the Associate HR role?",
+        "source": "system"
+    }
+}

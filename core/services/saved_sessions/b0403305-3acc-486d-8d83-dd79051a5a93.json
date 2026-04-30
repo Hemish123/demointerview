@@ -1,0 +1,29 @@
+{
+    "session_id": "b0403305-3acc-486d-8d83-dd79051a5a93",
+    "company": "JMS TechNova",
+    "role_label": "Associate HR",
+    "designation": "associate_hr",
+    "phase": "screening_topics",
+    "finished": false,
+    "candidate_name": "Taksh Patel",
+    "last_answer": "",
+    "answers": {
+        "role_confirm": ".",
+        "education": "."
+    },
+    "topics_asked": [
+        "Employee Relations"
+    ],
+    "current_topic": "Employee Relations",
+    "awaiting_experience": true,
+    "llm_hr_count": 0,
+    "hr_limit": null,
+    "total_questions_asked": 3,
+    "total_limit": 15,
+    "last_question": {
+        "id": "topic-Employee Relations",
+        "text": "Are you familiar with employee relations in the context of human resources?",
+        "source": "llm"
+    },
+    "awaiting_repeat_confirmation": true
+}

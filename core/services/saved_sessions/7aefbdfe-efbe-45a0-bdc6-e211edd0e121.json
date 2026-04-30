@@ -1,0 +1,40 @@
+{
+    "session_id": "7aefbdfe-efbe-45a0-bdc6-e211edd0e121",
+    "company": "JMS TechNova",
+    "role_label": "Associate HR",
+    "designation": "associate_hr",
+    "phase": "finished",
+    "finished": true,
+    "candidate_name": "ayushi",
+    "last_answer": "",
+    "answers": {
+        "education": "I am a graduate.",
+        "hr-final-7": "No, I don't talk about this."
+    },
+    "topics_asked": [
+        "Can you describe your experience related to this area?",
+        "Conflict Resolution Skills",
+        "payroll basics",
+        "Employee Onboarding Process",
+        "employee relations"
+    ],
+    "current_topic": null,
+    "awaiting_experience": false,
+    "llm_hr_count": 0,
+    "hr_limit": 5,
+    "silence_count": 0,
+    "total_questions_asked": 14,
+    "total_limit": 17,
+    "last_question": {
+        "id": "hr-final-1",
+        "text": "Are you Open to work from office ?",
+        "source": "system"
+    },
+    "awaiting_repeat_confirmation": false,
+    "last_real_question": {
+        "id": "hr-final-1",
+        "text": "Are you Open to work from office ?",
+        "source": "system"
+    },
+    "final_hr_queue": []
+}

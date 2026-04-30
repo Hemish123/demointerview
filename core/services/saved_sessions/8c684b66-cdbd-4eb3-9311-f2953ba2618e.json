@@ -1,0 +1,37 @@
+{
+    "session_id": "8c684b66-cdbd-4eb3-9311-f2953ba2618e",
+    "company": "JMS TechNova",
+    "role_label": "Associate HR",
+    "designation": "associate_hr",
+    "phase": "finished",
+    "finished": true,
+    "candidate_name": "Taksh Patel",
+    "last_answer": "",
+    "answers": {
+        "education": "I am graduate in LDRB.",
+        "topic-Can you describe your experience related to this area?": "No, I don't know about this.",
+        "topic-Conflict Resolution Skills": "No, I don't know about this.",
+        "hr-final-7": "In Ahmedabad.",
+        "hr-final-2": "Yes, I use many air tools.Yes, yes."
+    },
+    "topics_asked": [
+        "Can you describe your experience related to this area?",
+        "Conflict Resolution Skills",
+        "employee relations",
+        "Talent Acquisition Strategies",
+        "payroll basics"
+    ],
+    "current_topic": null,
+    "awaiting_experience": false,
+    "llm_hr_count": 0,
+    "hr_limit": 5,
+    "silence_count": 0,
+    "total_questions_asked": 14,
+    "total_limit": 20,
+    "last_question": {
+        "id": "hr-final-1",
+        "text": "Are you Open to work from office ?",
+        "source": "system"
+    },
+    "final_hr_queue": []
+}

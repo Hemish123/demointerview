@@ -1,0 +1,25 @@
+{
+    "session_id": "140da9e6-69b9-4f54-ba75-283a28f91180",
+    "company": "JMS TechNova",
+    "role_label": "Associate HR",
+    "designation": "associate_hr",
+    "phase": "await_education_answer",
+    "finished": false,
+    "candidate_name": "Ayushi",
+    "last_answer": "Yes, I have a knowledge about this.",
+    "answers": {
+        "role_confirm": "Yes, I have a knowledge about this."
+    },
+    "topics_asked": [],
+    "current_topic": null,
+    "awaiting_experience": false,
+    "llm_hr_count": 0,
+    "hr_limit": null,
+    "total_questions_asked": 2,
+    "total_limit": 16,
+    "last_question": {
+        "id": "education",
+        "text": "Ayushi, can you tell me about your education?",
+        "source": "system"
+    }
+}

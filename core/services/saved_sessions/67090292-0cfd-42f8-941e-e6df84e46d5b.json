@@ -1,0 +1,18 @@
+{
+    "session_id": "67090292-0cfd-42f8-941e-e6df84e46d5b",
+    "company": "JMS TechNova",
+    "role_label": "Manager (IT)",
+    "designation": "manager_it",
+    "phase": "await_self_intro",
+    "finished": false,
+    "candidate_name": null,
+    "last_answer": null,
+    "answers": {},
+    "topics_asked": [],
+    "current_topic": null,
+    "awaiting_experience": false,
+    "llm_hr_count": 0,
+    "hr_limit": null,
+    "total_questions_asked": 0,
+    "total_limit": 17
+}

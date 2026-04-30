@@ -33,6 +33,24 @@ class InterviewSession(models.Model):
         blank=True
     )
 
+    candidate_name = models.CharField(
+        max_length=150,
+        null=True,
+        blank=True
+    )
+
+    candidate_email = models.EmailField(
+        max_length=254,
+        null=True,
+        blank=True
+    )
+
+    candidate_phone = models.CharField(
+        max_length=20,
+        null=True,
+        blank=True
+    )
+
     finished = models.BooleanField(default=False)
 
     created_at = models.DateTimeField(auto_now_add=True)

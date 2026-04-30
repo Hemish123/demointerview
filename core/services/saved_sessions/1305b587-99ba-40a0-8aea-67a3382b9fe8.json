@@ -1,0 +1,29 @@
+{
+    "session_id": "1305b587-99ba-40a0-8aea-67a3382b9fe8",
+    "company": "JMS TechNova",
+    "role_label": "Associate HR",
+    "designation": "associate_hr",
+    "phase": "screening_topics",
+    "finished": false,
+    "candidate_name": "Ayushi",
+    "last_answer": "",
+    "answers": {
+        "role_confirm": "No, I don't know about this.",
+        "education": "I am graduate."
+    },
+    "topics_asked": [
+        "Can you describe your experience related to this area?"
+    ],
+    "current_topic": "Can you describe your experience related to this area?",
+    "awaiting_experience": true,
+    "llm_hr_count": 0,
+    "hr_limit": null,
+    "total_questions_asked": 3,
+    "total_limit": 16,
+    "last_question": {
+        "id": "topic-Can you describe your experience related to this area?",
+        "text": "Are you familiar with the key responsibilities and functions of an Associate HR role?",
+        "source": "llm"
+    },
+    "awaiting_repeat_confirmation": true
+}

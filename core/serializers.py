@@ -12,6 +12,9 @@ class StartInterviewSerializer(serializers.Serializer):
         max_length=100,
         default="JMS TechNova"
     )
+    candidate_name = serializers.CharField(max_length=150)
+    candidate_email = serializers.EmailField(max_length=254)
+    candidate_phone = serializers.CharField(max_length=20)
 
 
 class StartAutoInterviewSerializer(serializers.Serializer):

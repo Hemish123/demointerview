@@ -1,0 +1,33 @@
+{
+    "session_id": "de19aff1-9843-4089-8e25-7f9b740b7d7b",
+    "company": "JMS TechNova",
+    "role_label": "Associate HR",
+    "designation": "associate_hr",
+    "phase": "screening_topics",
+    "finished": false,
+    "candidate_name": "Tulsi",
+    "last_answer": ".",
+    "answers": {
+        "education": "I am graduate., Microphone Jaye Chhah Vidhayak.",
+        "topic-Talent Acquisition": ".",
+        "topic-Can you describe your experience related to this area?": "."
+    },
+    "topics_asked": [
+        "Employee Relations",
+        "Talent Acquisition",
+        "Can you describe your experience related to this area?",
+        "payroll basics"
+    ],
+    "current_topic": "payroll basics",
+    "awaiting_experience": true,
+    "llm_hr_count": 0,
+    "hr_limit": null,
+    "silence_count": 0,
+    "total_questions_asked": 6,
+    "total_limit": 17,
+    "last_question": {
+        "id": "topic-payroll basics",
+        "text": "Are you familiar with the basics of payroll processes?",
+        "source": "llm"
+    }
+}

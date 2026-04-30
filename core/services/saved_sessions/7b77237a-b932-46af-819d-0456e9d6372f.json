@@ -1,0 +1,24 @@
+{
+    "session_id": "7b77237a-b932-46af-819d-0456e9d6372f",
+    "company": "JMS TechNova",
+    "role_label": "Senior Manager \u2013 TAS / FDD",
+    "designation": "senior_manager_tas",
+    "phase": "await_education_answer",
+    "finished": false,
+    "candidate_name": "Tulsi",
+    "last_answer": "",
+    "answers": {},
+    "topics_asked": [],
+    "current_topic": null,
+    "awaiting_experience": false,
+    "llm_hr_count": 0,
+    "hr_limit": null,
+    "silence_count": 0,
+    "total_questions_asked": 2,
+    "total_limit": 17,
+    "last_question": {
+        "id": "education",
+        "text": "Tulsi, can you tell me about your education?",
+        "source": "system"
+    }
+}

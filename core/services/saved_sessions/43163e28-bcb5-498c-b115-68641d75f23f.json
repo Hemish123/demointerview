@@ -1,0 +1,18 @@
+{
+    "session_id": "43163e28-bcb5-498c-b115-68641d75f23f",
+    "company": "JMS TechNova",
+    "role_label": "Assistant Manager (IT)",
+    "designation": "assistant_manager_it",
+    "phase": "await_self_intro",
+    "finished": false,
+    "candidate_name": null,
+    "last_answer": null,
+    "answers": {},
+    "topics_asked": [],
+    "current_topic": null,
+    "awaiting_experience": false,
+    "llm_hr_count": 0,
+    "hr_limit": null,
+    "total_questions_asked": 0,
+    "total_limit": 20
+}

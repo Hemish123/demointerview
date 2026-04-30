@@ -508,10 +508,14 @@ def get_next_question(session):
 
 
     # -------------------------------------------------
-    # SILENCE / REPEAT HANDLING  (NEW)
+    # SILENCE / REPEAT HANDLING
     # -------------------------------------------------
 
     answer = (session.last_answer or "").strip().lower()
+
+    # Initialize silence counter
+    if not hasattr(session, "silence_count"):
+        session.silence_count = 0
 
     # If we previously asked whether to repeat the question
     if getattr(session, "awaiting_repeat_confirmation", False):
@@ -519,25 +523,81 @@ def get_next_question(session):
         repeat_words = ["yes", "repeat", "say again", "please repeat"]
 
         if any(w in answer for w in repeat_words):
-
             session.awaiting_repeat_confirmation = False
+            session.silence_count = 0
+            if hasattr(session, "last_real_question"):
+                return session.last_real_question
 
-            if hasattr(session, "last_question"):
-                return session.last_question
-
-        # if user says something else → continue normal flow
+        # user said something else or stayed silent → continue forward
         session.awaiting_repeat_confirmation = False
+        # If still empty, don't re-trigger — just move on
 
 
-    # Detect silence
+    # Detect silence (only if not already in repeat flow)
     if hasattr(session, "last_question") and answer in ["", None]:
 
-        session.awaiting_repeat_confirmation = True
+        session.silence_count = getattr(session, "silence_count", 0) + 1
 
-        return _q(
-            "repeat_offer",
-            "I couldn't get your answer. Would you like me to repeat the question?"
-        )
+        # After 1 consecutive silence → skip forward, don't loop
+        if session.silence_count >= 1:
+            session.silence_count = 0
+            # Fall through to normal flow — will advance the phase
+        else:
+            session.awaiting_repeat_confirmation = True
+            # Save the real question so we can repeat it (not the repeat_offer itself)
+            if hasattr(session, "last_question") and session.last_question.get("id") != "repeat_offer":
+                session.last_real_question = session.last_question
+            return _q(
+                "repeat_offer",
+                "I couldn't get your answer. Would you like me to repeat the question?"
+            )
+    else:
+        # User gave an answer → reset silence counter
+        session.silence_count = 0
+
+
+
+# def get_next_question(session):
+
+
+#     # ---------------- STORE PREVIOUS ANSWER ----------------
+#     if session.last_answer and hasattr(session, "last_question"):
+#         qid = session.last_question.get("id")
+#         if qid and qid not in session.answers:
+#             session.answers[qid] = session.last_answer
+
+
+#     # -------------------------------------------------
+#     # SILENCE / REPEAT HANDLING  (NEW)
+#     # -------------------------------------------------
+
+#     answer = (session.last_answer or "").strip().lower()
+
+#     # If we previously asked whether to repeat the question
+#     if getattr(session, "awaiting_repeat_confirmation", False):
+
+#         repeat_words = ["yes", "repeat", "say again", "please repeat"]
+
+#         if any(w in answer for w in repeat_words):
+
+#             session.awaiting_repeat_confirmation = False
+
+#             if hasattr(session, "last_question"):
+#                 return session.last_question
+
+#         # if user says something else → continue normal flow
+#         session.awaiting_repeat_confirmation = False
+
+
+#     # Detect silence
+#     if hasattr(session, "last_question") and answer in ["", None]:
+
+#         session.awaiting_repeat_confirmation = True
+
+#         return _q(
+#             "repeat_offer",
+#             "I couldn't get your answer. Would you like me to repeat the question?"
+#         )
 
 
     # ---------------- INIT SAFETY ----------------
@@ -584,7 +644,7 @@ def get_next_question(session):
         session.phase = "await_self_intro"
 
         text = (
-            f"Hello and welcome , I am Naavya from {session.company}. "
+            f"Hello and welcome {session.candidate_name or ''}, I am Naavya from {session.company}. "
             f"This interview is for the {session.role_label} role. "
             "Now please tell me about yourself."
         )
@@ -596,9 +656,11 @@ def get_next_question(session):
 
     if session.phase == "await_self_intro":
 
-        session.candidate_name = (
-            _extract_name(session.last_answer) or session.candidate_name
-        )
+        # Only extract name from speech if not already provided via form
+        if not session.candidate_name:
+            session.candidate_name = (
+                _extract_name(session.last_answer) or session.candidate_name
+            )
 
         session.phase = "ask_JMS TechNova"
 

@@ -15,6 +15,9 @@ from pickle import FALSE
 from pathlib import Path
 from corsheaders.defaults import default_headers
 import dj_database_url
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -27,7 +30,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-42erb&7u2c*c$bw^=*2wr0f%(49pz!^$g+bgxsx!m5cv-lvc-1'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
@@ -95,13 +98,21 @@ WSGI_APPLICATION = 'ai_voice_interviewer.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
-DATABASES = {
-    'default': dj_database_url.parse(
-        os.getenv("DATABASE_URL"),
-        conn_max_age=600,
-        ssl_require=True
-    )
-}
+if DEBUG:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
+else:
+    DATABASES = {
+        'default': dj_database_url.parse(
+            os.getenv("DATABASE_URL"),
+            conn_max_age=600,
+            ssl_require=True
+        )
+    }
 
 
 
@@ -150,3 +161,18 @@ CSRF_TRUSTED_ORIGINS = [
 
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR
+
+
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+
+EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD")
+
+DEFAULT_FROM_EMAIL = f"JMS Tech Interview <{EMAIL_HOST_USER}>"
+
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

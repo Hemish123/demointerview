@@ -1,507 +1,3 @@
-{% comment %} <!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<link rel="icon" href="/static/favicon.ico">
-
-<title>AI Voice Interviewer</title>
-
-<style>
-/* ===============================
-   GLOBAL
-================================ */
-body {
-  margin: 0;
-  font-family: "Inter", system-ui, sans-serif;
-  background: radial-gradient(circle at top, #0f172a, #020617 70%);
-  color: #e5e7eb;
-}
-
-.container {
-  max-width: 920px;
-  margin: auto;
-  padding: 40px 20px;
-}
-
-/* ===============================
-   HEADER
-================================ */
-.header {
-  text-align: center;
-  margin-bottom: 35px;
-}
-
-.header h1 {
-  font-size: 34px;
-  font-weight: 700;
-}
-
-.header p {
-  color: #94a3b8;
-}
-
-/* ===============================
-   CARD
-================================ */
-.card {
-  background: linear-gradient(180deg, #020617, #020617);
-  border-radius: 14px;
-  padding: 24px;
-  box-shadow:
-    0 0 0 1px rgba(255,255,255,0.04),
-    0 20px 40px rgba(0,0,0,0.6);
-}
-
-/* ===============================
-   FORM
-================================ */
-label {
-  font-size: 13px;
-  color: #cbd5f5;
-}
-
-select, input[type=file] {
-  width: 100%;
-  margin-top: 6px;
-  margin-bottom: 16px;
-  padding: 12px 14px;
-  border-radius: 8px;
-  background: #020617;
-  color: #e5e7eb;
-  border: 1px solid #1e293b;
-  font-size: 15px;
-}
-
-button {
-  width: 100%;
-  padding: 13px;
-  border-radius: 8px;
-  border: none;
-  font-size: 15px;
-  font-weight: 600;
-  background: linear-gradient(135deg, #2563eb, #1d4ed8);
-  color: white;
-  cursor: pointer;
-}
-
-button:hover {
-  transform: translateY(-1px);
-}
-
-/* ===============================
-   CHAT
-================================ */
-.chat {
-  margin-top: 10px;
-  max-height: 420px;
-  overflow-y: auto;
-}
-
-/* BOT */
-.bot {
-  background: #0e5461;
-  border-left: 4px solid #22c55e;
-  padding: 14px;
-  border-radius: 10px;
-  margin-bottom: 14px;
-  max-width: 75%;
-}
-
-/* USER */
-.user {
-  background: #2a3359;
-  border-right: 4px solid #3b82f6;
-  padding: 14px;
-  border-radius: 10px;
-  margin-bottom: 14px;
-  margin-left: auto;
-  max-width: 75%;
-  text-align: right;
-}
-
-/* FOOTER */
-.footer input {
-  width: 100%;
-  padding: 12px;
-  background: #020617;
-  border: 1px solid #1e293b;
-  border-radius: 8px;
-  color: white;
-  text-align: center;
-}
-
-</style>
-</head>
-
-<body>
-
-<div class="container">
-
-  <div class="header">
-    <h1>🎙️ AI Voice Interviewer</h1>
-    <p>Automated screening powered by JMS TechNova</p>
-  </div>
-
-  <!-- ================= SETUP ================= -->
-
-  <div class="card" id="setupCard">
-
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;">
-
-      <!-- PREDEFINED -->
-      <div>
-
-        <h3>🎯 Predefined Role</h3>
-
-        <label>Domain</label>
-        <select id="domain"></select>
-
-        <label>Role</label>
-        <select id="role"></select>
-
-        <button onclick="startPredefined()">Start Interview</button>
-
-      </div>
-
-      <!-- AUTO JD -->
-      <div>
-
-        <h3>📄 JD / Resume</h3>
-
-        <label>Upload Document</label>
-        <input type="file" id="jdFile" accept=".pdf,.doc,.docx">
-
-        <button onclick="startAutoJD()">Upload & Start Interview</button>
-
-      </div>
-
-    </div>
-
-  </div>
-
-  <!-- ================= INTERVIEW ================= -->
-
-  <div class="card" id="interviewCard" style="display:none;">
-
-    <div class="chat" id="chat"></div>
-
-    <div class="footer">
-      <input id="answer"
-             placeholder="🎤 Speak naturally..."
-             disabled />
-    </div>
-
-  </div>
-
-</div>
-
-<script>
-
-/* ================= CONFIG ================= */
-
-const START_URL = "/api/start/";
-const START_AUTO_URL = "/api/start-auto/";
-const NEXT_URL = "/api/next/";
-const DOMAINS_URL = "/api/domains/";
-const ROLES_URL = "/api/roles/";
-
-let sessionId = null;
-let recognition = null;
-let interviewFinished = false;
-
-/* ================= iOS / SAFARI DETECTION ================= */
-
-const IS_IOS = /iPhone|iPad|iPod|Macintosh/i.test(navigator.userAgent);
-
-/* ================= AUDIO ================= */
-
-let iosAudio = new Audio();
-iosAudio.playsInline = true;
-iosAudio.preload = "auto";
-
-let audioContext = null;
-
-/* ================= UI ================= */
-
-function addBot(t) {
-  chat.innerHTML += `<div class="bot">${t}</div>`;
-  chat.scrollTop = chat.scrollHeight;
-}
-
-function addUser(t) {
-  chat.innerHTML += `<div class="user">${t}</div>`;
-  chat.scrollTop = chat.scrollHeight;
-}
-
-/* ================= DOMAIN + ROLE LOAD ================= */
-
-fetch(DOMAINS_URL)
-  .then(r => r.json())
-  .then(d => {
-
-    domain.innerHTML = "";
-
-    d.domains.forEach(x => {
-      domain.innerHTML +=
-        `<option value="${x.id}">${x.label}</option>`;
-    });
-
-    if (d.domains.length) loadRoles();
-  })
-  .catch(err => console.error("❌ Domain load failed", err));
-
-domain.onchange = loadRoles;
-
-function loadRoles() {
-
-  if (!domain.value) return;
-
-  fetch(`${ROLES_URL}${domain.value}/`)
-    .then(r => r.json())
-    .then(d => {
-
-      role.innerHTML = "";
-
-      d.roles.forEach(x => {
-        role.innerHTML +=
-          `<option value="${x.id}">${x.label}</option>`;
-      });
-    })
-    .catch(err => console.error("❌ Role load failed", err));
-}
-
-/* ================= AUDIO UNLOCK ================= */
-
-async function unlockIOS() {
-
-  if (!audioContext)
-    audioContext = new (window.AudioContext || window.webkitAudioContext)();
-
-  if (audioContext.state === "suspended")
-    await audioContext.resume();
-
-  // silent buffer to unlock safari
-  const buf = audioContext.createBuffer(1, 1, 22050);
-  const src = audioContext.createBufferSource();
-  src.buffer = buf;
-  src.connect(audioContext.destination);
-  src.start();
-}
-
-/* ================= MIC ================= */
-
-function initMic() {
-
-  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
-
-  if (!SR) {
-    alert("Speech recognition not supported");
-    return;
-  }
-
-  recognition = new SR();
-  recognition.lang = "en-IN";
-  recognition.continuous = false;
-  recognition.interimResults = false;
-
-  recognition.onstart = () => {
-    answer.placeholder = "🎤 Listening...";
-  };
-
-  recognition.onresult = e => {
-    const text = e.results[0][0].transcript;
-    recognition.stop();
-    addUser(text);
-    sendAnswer(text);
-  };
-
-  recognition.onerror = () => stopMic();
-  recognition.onend = () => {};
-}
-
-function startMic() {
-
-  if (interviewFinished) return;
-
-  if (!recognition) initMic();
-
-  try {
-    recognition.start();
-  } catch (e) {
-    console.warn("Mic start blocked");
-  }
-}
-
-function stopMic() {
-
-  if (recognition) {
-    try { recognition.stop(); } catch {}
-  }
-}
-
-/* ================= AUDIO PLAY ================= */
-
-function playAudio(b64, isFinal = false) {
-
-  if (!b64) {
-    if (!isFinal) startMic();
-    return;
-  }
-
-  iosAudio.src = "data:audio/wav;base64," + b64;
-  iosAudio.load();
-
-  iosAudio.onended = () => {
-    if (!isFinal && !interviewFinished) {
-      startMic();
-    }
-  };
-
-  iosAudio.play()
-    .catch(() => console.warn("Safari autoplay blocked"));
-}
-
-/* ================= PREDEFINED START ================= */
-
-async function startPredefined() {
-
-  await unlockIOS();
-  initMic();
-
-  const r = await fetch(START_URL, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      company: "JMS TechNova",
-      role_label: role.options[role.selectedIndex].text,
-      designation: role.value
-    })
-  });
-
-  const d = await r.json();
-
-  sessionId = d.session_id;
-
-  setupCard.style.display = "none";
-  interviewCard.style.display = "block";
-
-  addBot(d.question.text);
-  playAudio(d.audio);
-}
-
-/* ================= AUTO JD ================= */
-
-async function startAutoJD() {
-
-  const file = document.getElementById("jdFile").files[0];
-  if (!file) { alert("Upload JD first"); return; }
-
-  await unlockIOS();
-  initMic();
-
-  const fd = new FormData();
-  fd.append("jd", file);
-
-  const r = await fetch(START_AUTO_URL, {
-    method: "POST",
-    body: fd
-  });
-
-  const d = await r.json();
-
-  sessionId = d.session_id;
-
-  setupCard.style.display = "none";
-  interviewCard.style.display = "block";
-
-  addBot(d.question.text);
-  playAudio(d.audio);
-}
-
-/* ================= SEND ANSWER ================= */
-
-async function sendAnswer(text) {
-
-  if (interviewFinished) return;
-
-  const r = await fetch(NEXT_URL, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      session_id: sessionId,
-      answer: text
-    })
-  });
-
-  const d = await r.json();
-
-  addBot(d.question.text);
-
-  if (d.finished) {
-
-    interviewFinished = true;
-
-    stopMic();
-    answer.disabled = true;
-    answer.placeholder = "Interview finished";
-
-    playAudio(d.audio, true);
-    return;
-  }
-
-  playAudio(d.audio);
-}
-
-/* ================= FORCE END ================= */
-
-function endInterviewUI() {
-
-  interviewFinished = true;
-
-  stopMic();
-
-  answer.disabled = true;
-  answer.placeholder = "Interview finished";
-}
-
-</script>
-
-
-
-</body>
-</html>
-
-
-{% endcomment %}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -577,7 +73,7 @@ label {
   color: #cbd5f5;
 }
 
-select, input[type=file] {
+select, input[type=file], input[type=text], input[type=email], input[type=tel] {
   width: 100%;
   margin-top: 6px;
   margin-bottom: 16px;
@@ -587,6 +83,54 @@ select, input[type=file] {
   color: #e5e7eb;
   border: 1px solid #1e293b;
   font-size: 15px;
+  box-sizing: border-box;
+  transition: border-color 0.25s ease;
+}
+
+input[type=text]:focus, input[type=email]:focus, input[type=tel]:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+}
+
+.candidate-info-section {
+  margin-bottom: 28px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+
+.candidate-info-section h3 {
+  color: #e5e7eb;
+  margin-bottom: 16px;
+  font-size: 16px;
+}
+
+.candidate-fields {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 16px;
+}
+
+@media (max-width: 768px) {
+  .candidate-fields {
+    grid-template-columns: 1fr;
+  }
+}
+
+.field-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.field-error {
+  border-color: #ef4444 !important;
+}
+
+.error-text {
+  color: #ef4444;
+  font-size: 11px;
+  margin-top: -12px;
+  margin-bottom: 8px;
 }
 
 button {
@@ -866,6 +410,25 @@ button {
 
   <div class="card" id="setupCard">
 
+    <!-- ================= CANDIDATE INFO ================= -->
+    <div class="candidate-info-section">
+      <h3>👤 Candidate Information</h3>
+      <div class="candidate-fields">
+        <div class="field-group">
+          <label for="candidateName">Full Name <span style="color:#ef4444">*</span></label>
+          <input type="text" id="candidateName" placeholder="e.g. Rahul Patel" required>
+        </div>
+        <div class="field-group">
+          <label for="candidateEmail">E-mail <span style="color:#ef4444">*</span></label>
+          <input type="email" id="candidateEmail" placeholder="e.g. rahul@example.com" required>
+        </div>
+        <div class="field-group">
+          <label for="candidatePhone">Phone <span style="color:#ef4444">*</span></label>
+          <input type="tel" id="candidatePhone" placeholder="e.g. 9876543210" required>
+        </div>
+      </div>
+    </div>
+
     <div class="setup-grid">
 
       <!-- PREDEFINED -->
@@ -963,9 +526,9 @@ let speechBuffer = "";
 let lastSpeechTime = 0;
 let userStartedSpeaking = false;  // ← NEW FLAG: true once user begins speaking
 
-const COMMA_PAUSE_THRESHOLD = 15000;
-const USER_LONG_SILENCE_LIMIT = 15000;
-const NO_RESPONSE_WAIT = 12000;   // how long to wait for user to START speaking after bot
+const COMMA_PAUSE_THRESHOLD = 5000;
+const USER_LONG_SILENCE_LIMIT = 8000;
+const NO_RESPONSE_WAIT = 8000;   // how long to wait for user to START speaking after bot
 
 /* =====================================================
    DEVICE DETECTION
@@ -1167,14 +730,16 @@ function initMic() {
 
     if (interviewFinished) return;
 
-    if (speechBuffer && !answerFinalized) {
-      if (micActive) {
-        try { recognition.start(); } catch {}
-        return;
-      }
+    // Case 1: User was speaking, answer not finalized, mic still flagged active → restart
+    if (speechBuffer && !answerFinalized && micActive) {
+      console.log("[MIC] onend — speech in progress, restarting...");
+      try { recognition.start(); } catch {}
+      return;
     }
 
+    // Case 2: User was speaking but mic died → submit what we have
     if (speechBuffer && !answerFinalized) {
+      console.log("[MIC] onend — mic died mid-speech, submitting buffer");
       answerFinalized = true;
       if (silenceTimer) clearTimeout(silenceTimer);
       if (noResponseTimer) clearTimeout(noResponseTimer);
@@ -1186,21 +751,26 @@ function initMic() {
       return;
     }
 
-    if (!speechBuffer && !answerFinalized) {
-      // only send empty if user truly never spoke (noResponseTimer handles this case now)
-      // do nothing here — let noResponseTimer fire
-      return;
-    }
-
-    if (!interviewFinished && micActive) {
+    // Case 3: No speech captured — RESTART MIC to keep listening
+    if (!speechBuffer && !answerFinalized && micActive) {
+      console.log("[MIC] onend — no speech yet, restarting mic...");
       try { recognition.start(); } catch {}
+      return;
     }
   };
 
   recognition.onerror = (e) => {
+    console.log("[MIC] onerror:", e.error);
     if (interviewFinished) return;
-    if (e.error === "no-speech" || e.error === "audio-capture") return;
-    try { recognition.start(); } catch {}
+
+    if (e.error === "not-allowed" || e.error === "service-not-allowed") return;
+
+    setTimeout(() => {
+      if (!interviewFinished && micActive && !answerFinalized) {
+        console.log("[MIC] restarting after error:", e.error);
+        try { recognition.start(); } catch {}
+      }
+    }, 300);
   };
 }
 
@@ -1279,6 +849,37 @@ function playAudio(b64, isFinal = false) {
 
 async function startPredefined() {
 
+  // Validate candidate fields
+  const nameEl = document.getElementById("candidateName");
+  const emailEl = document.getElementById("candidateEmail");
+  const phoneEl = document.getElementById("candidatePhone");
+  let valid = true;
+
+  [nameEl, emailEl, phoneEl].forEach(el => el.classList.remove("field-error"));
+  document.querySelectorAll(".error-text").forEach(e => e.remove());
+
+  if (!nameEl.value.trim()) {
+    nameEl.classList.add("field-error");
+    nameEl.insertAdjacentHTML("afterend", '<div class="error-text">Name is required</div>');
+    valid = false;
+  }
+
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailEl.value.trim() || !emailRegex.test(emailEl.value.trim())) {
+    emailEl.classList.add("field-error");
+    emailEl.insertAdjacentHTML("afterend", '<div class="error-text">Valid email is required</div>');
+    valid = false;
+  }
+
+  const phoneRegex = /^[\d\s\-\+\(\)]{7,20}$/;
+  if (!phoneEl.value.trim() || !phoneRegex.test(phoneEl.value.trim())) {
+    phoneEl.classList.add("field-error");
+    phoneEl.insertAdjacentHTML("afterend", '<div class="error-text">Valid phone is required</div>');
+    valid = false;
+  }
+
+  if (!valid) { hideLoading(); return; }
+
   await unlockIOS();
   initMic();
 
@@ -1288,7 +889,10 @@ async function startPredefined() {
     body: JSON.stringify({
       company: "JMS TechNova",
       role_label: role.options[role.selectedIndex].text,
-      designation: role.value
+      designation: role.value,
+      candidate_name: nameEl.value.trim(),
+      candidate_email: emailEl.value.trim(),
+      candidate_phone: phoneEl.value.trim()
     })
   });
 

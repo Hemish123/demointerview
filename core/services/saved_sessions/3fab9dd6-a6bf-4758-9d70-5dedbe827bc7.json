@@ -1,0 +1,24 @@
+{
+    "session_id": "3fab9dd6-a6bf-4758-9d70-5dedbe827bc7",
+    "company": "JMS TechNova",
+    "role_label": "Advanced Analyst \u2013 Valuations",
+    "designation": "advanced_analyst_valuations",
+    "phase": "role_check",
+    "finished": false,
+    "candidate_name": "Graduate In Ldrp",
+    "last_answer": "",
+    "answers": {},
+    "topics_asked": [],
+    "current_topic": null,
+    "awaiting_experience": false,
+    "llm_hr_count": 0,
+    "hr_limit": null,
+    "total_questions_asked": 1,
+    "total_limit": 19,
+    "last_question": {
+        "id": "role_confirm",
+        "text": "Thank you Graduate In Ldrp. Do you have knowledge about the Advanced Analyst \u2013 Valuations role?",
+        "source": "system"
+    },
+    "awaiting_repeat_confirmation": true
+}

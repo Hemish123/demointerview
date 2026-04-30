@@ -1,0 +1,30 @@
+{
+    "session_id": "50ad5579-c64c-47e0-b38a-a92a995e2a5c",
+    "company": "JMS TechNova",
+    "role_label": "Senior Analyst (IB)",
+    "designation": "senior_analyst_ib",
+    "phase": "screening_topics",
+    "finished": false,
+    "candidate_name": "Taksh",
+    "last_answer": "",
+    "answers": {},
+    "topics_asked": [],
+    "current_topic": null,
+    "awaiting_experience": false,
+    "llm_hr_count": 0,
+    "hr_limit": null,
+    "silence_count": 1,
+    "total_questions_asked": 2,
+    "total_limit": 17,
+    "last_question": {
+        "id": "education",
+        "text": "Taksh, can you tell me about your education?",
+        "source": "system"
+    },
+    "awaiting_repeat_confirmation": true,
+    "last_real_question": {
+        "id": "education",
+        "text": "Taksh, can you tell me about your education?",
+        "source": "system"
+    }
+}
