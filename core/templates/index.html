@@ -416,7 +416,7 @@ button {
       <div class="candidate-fields">
         <div class="field-group">
           <label for="candidateName">Full Name <span style="color:#ef4444">*</span></label>
-          <input type="text" id="candidateName" placeholder="e.g. Rahul Patel" required>
+          <input type="text" id="candidateName" placeholder="e.g. Rahul Patel" maxlength="30" required>
         </div>
         <div class="field-group">
           <label for="candidateEmail">E-mail <span style="color:#ef4444">*</span></label>
@@ -424,7 +424,7 @@ button {
         </div>
         <div class="field-group">
           <label for="candidatePhone">Phone <span style="color:#ef4444">*</span></label>
-          <input type="tel" id="candidatePhone" placeholder="e.g. 9876543210" required>
+          <input type="tel" id="candidatePhone" placeholder="e.g. 9876543210" maxlength="15" pattern="[0-9]*" inputmode="numeric" required>
         </div>
       </div>
     </div>
@@ -503,6 +503,22 @@ button {
 
 <!-- ================= YOUR CRITICAL SCRIPT (UNCHANGED) ================= -->
 <script>
+
+/* =====================================================
+   PHONE FIELD — DIGITS ONLY (strict)
+===================================================== */
+
+document.getElementById("candidatePhone").addEventListener("keypress", function(e) {
+  // Allow only digit keys (0-9). Block everything else.
+  if (!/\d/.test(e.key)) {
+    e.preventDefault();
+  }
+});
+
+document.getElementById("candidatePhone").addEventListener("input", function(e) {
+  // Strip any non-digit characters (handles paste)
+  this.value = this.value.replace(/\D/g, "");
+});
 
 /* =====================================================
    CONFIG
@@ -862,6 +878,10 @@ async function startPredefined() {
     nameEl.classList.add("field-error");
     nameEl.insertAdjacentHTML("afterend", '<div class="error-text">Name is required</div>');
     valid = false;
+  } else if (nameEl.value.trim().length > 30) {
+    nameEl.classList.add("field-error");
+    nameEl.insertAdjacentHTML("afterend", '<div class="error-text">Name must be 30 characters or less</div>');
+    valid = false;
   }
 
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -871,10 +891,10 @@ async function startPredefined() {
     valid = false;
   }
 
-  const phoneRegex = /^[\d\s\-\+\(\)]{7,20}$/;
+  const phoneRegex = /^\d{7,15}$/;
   if (!phoneEl.value.trim() || !phoneRegex.test(phoneEl.value.trim())) {
     phoneEl.classList.add("field-error");
-    phoneEl.insertAdjacentHTML("afterend", '<div class="error-text">Valid phone is required</div>');
+    phoneEl.insertAdjacentHTML("afterend", '<div class="error-text">Phone must contain only digits (7-15 digits)</div>');
     valid = false;
   }
 
@@ -1018,17 +1038,43 @@ function skipExport() {
    END INTERVIEW HANDLER
 ================================ */
 
-document.getElementById("endInterviewBtn").onclick = () => {
+document.getElementById("endInterviewBtn").onclick = async () => {
+
+  if (!sessionId) {
+    window.location.href = "/";
+    return;
+  }
+
+  if (!confirm("Are you sure you want to end the interview? You will receive a Q&A transcript via email but NO performance analysis.")) {
+    return;
+  }
 
   if (recognition) {
     try { recognition.stop(); } catch {}
   }
 
   interviewFinished = true;
+
+  // Show loading while email is being sent
+  const btn = document.getElementById("endInterviewBtn");
+  btn.disabled = true;
+  btn.textContent = "⏳ Sending transcript email...";
+
+  try {
+    const resp = await fetch("/api/v1/end/", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ session_id: sessionId })
+    });
+    const data = await resp.json();
+    if (data.success) {
+      alert("Interview ended. A Q&A transcript has been sent to your email.");
+    }
+  } catch (err) {
+    console.error("End interview error:", err);
+  }
+
   sessionId = null;
-
-  fetch("/api/v1/end/", { method: "POST" }).catch(() => {});
-
   window.location.href = "/";
 };
 

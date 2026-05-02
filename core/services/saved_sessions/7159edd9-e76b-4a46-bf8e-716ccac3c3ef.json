@@ -1,0 +1,19 @@
+{
+    "session_id": "7159edd9-e76b-4a46-bf8e-716ccac3c3ef",
+    "company": "JMS TechNova",
+    "role_label": "Assistant Manager \u2013 US Accounts",
+    "designation": "assistant_manager_us_accounts",
+    "phase": "await_self_intro",
+    "finished": false,
+    "candidate_name": "Taksh Patel",
+    "last_answer": null,
+    "answers": {},
+    "topics_asked": [],
+    "current_topic": null,
+    "awaiting_experience": false,
+    "llm_hr_count": 0,
+    "hr_limit": null,
+    "silence_count": 0,
+    "total_questions_asked": 0,
+    "total_limit": 17
+}

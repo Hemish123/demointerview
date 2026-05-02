@@ -1,0 +1,19 @@
+{
+    "session_id": "dc8a0c3c-4a51-4e4b-97ba-d80e2e8336f7",
+    "company": "JMS TechNova",
+    "role_label": "Manager \u2013 Marketing",
+    "designation": "manager_marketing",
+    "phase": "await_self_intro",
+    "finished": false,
+    "candidate_name": "Taksh Patel",
+    "last_answer": null,
+    "answers": {},
+    "topics_asked": [],
+    "current_topic": null,
+    "awaiting_experience": false,
+    "llm_hr_count": 0,
+    "hr_limit": null,
+    "silence_count": 0,
+    "total_questions_asked": 0,
+    "total_limit": 16
+}

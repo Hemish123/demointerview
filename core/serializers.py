@@ -1,4 +1,5 @@
 from rest_framework import serializers
+from django.core.validators import RegexValidator
 
 
 class StartInterviewSerializer(serializers.Serializer):
@@ -12,9 +13,17 @@ class StartInterviewSerializer(serializers.Serializer):
         max_length=100,
         default="JMS TechNova"
     )
-    candidate_name = serializers.CharField(max_length=150)
+    candidate_name = serializers.CharField(max_length=30)
     candidate_email = serializers.EmailField(max_length=254)
-    candidate_phone = serializers.CharField(max_length=20)
+    candidate_phone = serializers.CharField(
+        max_length=15,
+        validators=[
+            RegexValidator(
+                regex=r'^\d+$',
+                message='Phone number must contain only digits.',
+            )
+        ]
+    )
 
 
 class StartAutoInterviewSerializer(serializers.Serializer):

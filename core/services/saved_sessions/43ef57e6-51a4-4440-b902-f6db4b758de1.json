@@ -1,0 +1,24 @@
+{
+    "session_id": "43ef57e6-51a4-4440-b902-f6db4b758de1",
+    "company": "JMS TechNova",
+    "role_label": "Senior Associate \u2013 T A & People Function",
+    "designation": "senior_associate_ta",
+    "phase": "role_check",
+    "finished": false,
+    "candidate_name": "Taksh Patel",
+    "last_answer": "",
+    "answers": {},
+    "topics_asked": [],
+    "current_topic": null,
+    "awaiting_experience": false,
+    "llm_hr_count": 0,
+    "hr_limit": null,
+    "silence_count": 0,
+    "total_questions_asked": 1,
+    "total_limit": 15,
+    "last_question": {
+        "id": "role_confirm",
+        "text": "Thank you Taksh Patel. Do you have knowledge about the Senior Associate \u2013 T A & People Function role?",
+        "source": "system"
+    }
+}

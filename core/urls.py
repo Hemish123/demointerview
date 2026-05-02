@@ -53,6 +53,7 @@ from core.views import (
     NextQuestionAPI,
     ExportInterviewAPI,
     EvaluateInterviewAPI,
+    EndInterviewAPI,
     index,
 )
 
@@ -67,5 +68,6 @@ urlpatterns = [
     path("api/v1/next/", NextQuestionAPI.as_view()),
     path("api/v1/export/", ExportInterviewAPI.as_view()),
     path("api/v1/evaluate/", EvaluateInterviewAPI.as_view()),
+    path("api/v1/end/", EndInterviewAPI.as_view()),
 ]
 

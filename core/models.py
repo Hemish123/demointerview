@@ -34,7 +34,7 @@ class InterviewSession(models.Model):
     )
 
     candidate_name = models.CharField(
-        max_length=150,
+        max_length=30,
         null=True,
         blank=True
     )

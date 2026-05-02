@@ -477,8 +477,247 @@ def _export_analysis_pdf(session_id, candidate_name, role, transcript, evaluatio
 
 
 # =====================================================
-# API: NEXT QUESTION
+# Q&A-ONLY PDF EXPORT (FOR INCOMPLETE INTERVIEWS)
 # =====================================================
+
+def _export_qa_only_pdf(session_id, candidate_name, role, transcript, evaluation=None):
+    """Generate a simple PDF for incomplete interviews.
+    Includes Q&A transcript + optional text-based analysis (no gauges/charts).
+    """
+    from datetime import datetime
+    from reportlab.platypus import (
+        SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle, Image
+    )
+    from reportlab.lib.pagesizes import A4
+    from reportlab.lib import colors
+    from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
+    from reportlab.lib.units import mm
+    from reportlab.graphics.shapes import Drawing, Line
+
+    os.makedirs(EXPORT_DIR, exist_ok=True)
+
+    ts = datetime.now().strftime("%Y%m%d_%H%M%S")
+    fname = f"qa_transcript_{session_id}_{ts}.pdf"
+    path = os.path.join(EXPORT_DIR, fname)
+
+    styles = getSampleStyleSheet()
+    story = []
+
+    # ── LOGO + TITLE HEADER ──
+    logo_path = os.path.join(settings.BASE_DIR, "static", "JMS .png")
+    header_data = []
+    if os.path.exists(logo_path):
+        logo = Image(logo_path, width=60, height=60)
+        header_data = [[
+            logo,
+            Paragraph(
+                '<b>JMS TechNova</b><br/>'
+                '<font size="10" color="#666666">Interview Transcript (Incomplete)</font>',
+                ParagraphStyle(
+                    "HeaderTitle",
+                    parent=styles["Title"],
+                    fontSize=18,
+                    leading=22,
+                    alignment=0,
+                )
+            )
+        ]]
+    else:
+        header_data = [[
+            "",
+            Paragraph(
+                '<b>JMS TechNova</b><br/>'
+                '<font size="10" color="#666666">Interview Transcript (Incomplete)</font>',
+                styles["Title"]
+            )
+        ]]
+
+    header_table = Table(header_data, colWidths=[75, 425])
+    header_table.setStyle(TableStyle([
+        ("VALIGN", (0, 0), (-1, -1), "MIDDLE"),
+        ("BOTTOMPADDING", (0, 0), (-1, -1), 10),
+    ]))
+    story.append(header_table)
+    story.append(Spacer(1, 8))
+
+    # ── CANDIDATE INFO ──
+    info_style = ParagraphStyle("Info", parent=styles["Normal"], fontSize=10, leading=14)
+    date_str = datetime.now().strftime("%B %d, %Y  %I:%M %p")
+    story.append(Paragraph(f'<b>Candidate:</b> {candidate_name}', info_style))
+    story.append(Paragraph(f'<b>Role:</b> {role}', info_style))
+    story.append(Paragraph(f'<b>Date:</b> {date_str}', info_style))
+    story.append(Paragraph(
+        '<b>Status:</b> <font color="#c62828">Interview Ended Early (Incomplete)</font>',
+        info_style
+    ))
+    story.append(Spacer(1, 16))
+
+    # ── SEPARATOR ──
+    sep_drawing = Drawing(500, 2)
+    sep_drawing.add(Line(0, 1, 500, 1, strokeColor=colors.HexColor("#3f51b5"), strokeWidth=1.5))
+    story.append(sep_drawing)
+    story.append(Spacer(1, 12))
+
+    # ── NOTICE ──
+    notice_style = ParagraphStyle(
+        "NoticeBox", parent=styles["Normal"],
+        fontSize=9, leading=13,
+        backColor=colors.HexColor("#fff3e0"),
+        borderPadding=10,
+        borderColor=colors.HexColor("#f57c00"),
+        borderWidth=1,
+        borderRadius=4,
+    )
+    story.append(Paragraph(
+        '<b>Note:</b> This interview was ended before completion. '
+        'The analysis below is based only on the questions that were answered.',
+        notice_style
+    ))
+    story.append(Spacer(1, 16))
+
+    # ── Q&A TABLE ──
+    story.append(Paragraph('<b>Questions & Answers</b>',
+                           ParagraphStyle("QATitle", parent=styles["Heading3"],
+                                          textColor=colors.HexColor("#1a237e"))))
+    story.append(Spacer(1, 6))
+
+    small = ParagraphStyle("Small", parent=styles["Normal"], fontSize=8, leading=10)
+
+    # Simple Q&A only (no evaluation available)
+    qa_data = [["#", "Question", "Answer"]]
+    for t in transcript:
+        qa_data.append([
+            str(t["index"]),
+            Paragraph(t["question"][:300], small),
+            Paragraph((t["answer"] or "No answer")[:400], small),
+        ])
+
+    qa_table = Table(qa_data, colWidths=[30, 230, 240])
+
+    qa_table.setStyle(TableStyle([
+        ("BACKGROUND", (0, 0), (-1, 0), colors.HexColor("#1a237e")),
+        ("TEXTCOLOR", (0, 0), (-1, 0), colors.white),
+        ("FONTNAME", (0, 0), (-1, 0), "Helvetica-Bold"),
+        ("FONTSIZE", (0, 0), (-1, 0), 8),
+        ("FONTSIZE", (0, 1), (-1, -1), 7),
+        ("GRID", (0, 0), (-1, -1), 0.4, colors.HexColor("#bdbdbd")),
+        ("VALIGN", (0, 0), (-1, -1), "TOP"),
+        ("TOPPADDING", (0, 0), (-1, -1), 5),
+        ("BOTTOMPADDING", (0, 0), (-1, -1), 5),
+        ("ROWBACKGROUNDS", (0, 1), (-1, -1), [colors.white, colors.HexColor("#f5f5f5")]),
+    ]))
+    story.append(qa_table)
+
+    # ── FOOTER ──
+    story.append(Spacer(1, 20))
+    footer_style = ParagraphStyle("Footer", parent=styles["Normal"],
+                                   fontSize=7, textColor=colors.grey, alignment=1)
+    story.append(Paragraph(
+        f"Generated by JMS TechNova AI Interview System | {date_str}",
+        footer_style
+    ))
+
+    doc = SimpleDocTemplate(path, pagesize=A4,
+                            leftMargin=25*mm, rightMargin=25*mm,
+                            topMargin=20*mm, bottomMargin=20*mm)
+    doc.build(story)
+
+    return path
+
+
+# =====================================================
+# API: END INTERVIEW (INCOMPLETE — IMMEDIATE EMAIL)
+# =====================================================
+
+class EndInterviewAPI(APIView):
+
+    authentication_classes = [CsrfExemptSessionAuthentication]
+    permission_classes = [AllowAny]
+
+    def post(self, request):
+        session_id = request.data.get("session_id")
+
+        if not session_id:
+            return Response(
+                {"error": "session_id required"},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
+        session_id = str(session_id)
+
+        # Fetch DB session
+        try:
+            db_session = InterviewSession.objects.get(id=session_id)
+        except InterviewSession.DoesNotExist:
+            return Response(
+                {"error": "Session not found"},
+                status=status.HTTP_404_NOT_FOUND
+            )
+
+        candidate_email = db_session.candidate_email
+        candidate_name = db_session.candidate_name or "Candidate"
+        role_label = db_session.role_label or db_session.designation or "General"
+
+        # Mark as finished (incomplete)
+        db_session.finished = True
+        db_session.save()
+
+        # Fetch all Q&A turns
+        turns = InterviewTurn.objects.filter(
+            session_id=session_id
+        ).order_by("question_index")
+
+        transcript = [
+            {
+                "index": t.question_index,
+                "question": t.question_text,
+                "answer": t.answer_text,
+            }
+            for t in turns
+        ]
+
+        # Generate simple PDF with Q&A transcript only
+        pdf_path = None
+        if transcript:
+            try:
+                pdf_path = _export_qa_only_pdf(
+                    session_id, candidate_name, role_label, transcript
+                )
+                print(f"✅ Interview transcript PDF exported: {pdf_path}")
+
+                # Save export record
+                InterviewExport.objects.create(
+                    session_id=session_id,
+                    format="pdf",
+                    file=os.path.basename(pdf_path),
+                )
+            except Exception as e:
+                print(f"❌ PDF export failed: {e}")
+                import traceback
+                traceback.print_exc()
+
+        # Send email immediately with PDF
+        if candidate_email:
+            try:
+                from core.services.email_service import send_incomplete_interview_email
+                send_incomplete_interview_email(
+                    to_email=candidate_email,
+                    candidate_name=candidate_name,
+                    role=role_label,
+                    pdf_path=pdf_path,
+                )
+                print(f"✅ Incomplete interview email sent to {candidate_email}")
+            except Exception as e:
+                print(f"❌ Failed to send incomplete interview email: {e}")
+                import traceback
+                traceback.print_exc()
+
+        return Response(
+            {"success": True, "message": "Interview ended. Email sent with analysis."},
+            status=status.HTTP_200_OK
+        )
+
+
 
 from core.serializers import NextQuestionSerializer
 
